@@ -519,7 +519,7 @@ def runJob_PROJ( basename, lmos, atoms, maxnlp, writeraos, \
 
 
 #==============================================================================
-#  MAIN PROGRAM:
+#  THE MAIN PROGRAM:
 #==============================================================================
 
 # Welcome message:
