@@ -36,15 +36,15 @@ Then, you are ready to go.
 ### Gaussian calculations
 1. In the input file (e.g., abc.gjf), add in the route section the keywords "fchk=All Pop=NBO6Read" while at the end of the file add "$NBO NOBOND AONAO=W $END". In this way, the checkpoint file "Test.FChk" and the NBO matrix file "abc.33" will be generated. Then, rename "Test.FChk" to "abc.fchk". The Gaussian output file should have the extension name of ".out" (If necessary, "abc.log" ought to be renamed as "abc.out").
 
-Notes: 
-i) It is strongly recommended to use the NBO program later than version 5.0. The free version of NBO 3.1 implemented in Gaussian package would be problematic and give unreliable results.
-ii) Do not use "fchk=All" to generate the checkpoint file if there are two such jobs running at the same working directory at the same time. Otherwise, the two jobs will write the same "Test.FChk" file. Instead, add the "%chk=abc.chk" to obtain the checkpoint file "abc.chk". Then, use the formchk utility to convert "abc.chk" to "abc.fchk".
+NOTES: 
+- It is strongly recommended to use the NBO program later than version 5.0. The free version of NBO 3.1 implemented in Gaussian package would be problematic and give unreliable results.
+- Do not use "fchk=All" to generate the checkpoint file if there are two such jobs running at the same working directory at the same time. Otherwise, the two jobs will write the same "Test.FChk" file. Instead, add the "%chk=abc.chk" to obtain the checkpoint file "abc.chk". Then, use the formchk utility to convert "abc.chk" to "abc.fchk".
 
 2. Make sure that the following four files, as the inputs for EzReson, are in the same working directory:
-    - abc.gjf
-    - abc.out
-    - abc.fchk
-    - abc.33 
+- abc.gjf
+- abc.out
+- abc.fchk
+- abc.33 
 
 3. Change to the working directory and prepare the input file for EzReson (vide infra), say, "abc_wfrt.in"
 
