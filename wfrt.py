@@ -5,6 +5,12 @@
 #
 #  Updates:
 #
+#    Sep 1, 2020:
+#    - Added function wfrt_hmo_kekule() to perform WFRT analysis in the HMO
+#      framework using only Kekule structures
+#    - Added in proj_DM_WF(), proj_DM_WF_kekule() the argument raoFlipAtoms 
+#      to allow one to manually assign the RAO phases
+#
 #    Aug 28, 2020:
 #    - Fixed a bug in proj_DM_WF() that when ixLS==-1, only 1 Lewis structure
 #      is considered
@@ -1051,7 +1057,7 @@ def wfrt_spec( naoInfo, FchkInfo, CAONAO, CLMO, ELMO, atIx1, moIx1, ixLS, \
             print( ' %6.2f%%' % ( W_Bick[i]*100 ), end='' )
             print( ' %6.2f%%' % ( W_RS[i]*100 ), end='' )
             print( ' %6.2f%%' % ( W_Lowd[i]*100 ), end='' )
-            print( ' %6.4f%%' % ( W_PWSO[i]*100 ), end='' )
+            print( ' %6.2f%%' % ( W_PWSO[i]*100 ), end='' )
         print( '  %s' % str_LS[i] )
     print( '-'*105 )
     print( 'Reproducibility = %10.6f%%' % ( R*100 ) )
@@ -1122,7 +1128,7 @@ def wfrt_spec( naoInfo, FchkInfo, CAONAO, CLMO, ELMO, atIx1, moIx1, ixLS, \
 #                 (3) If ixLS == -1 (default), no LSs are specified
 #   inpBaseName:      Write RAOs into a *.fchk file; Default: '' --> Do not write
 def proj_DM_WF( naoInfo, FchkInfo, CAONAO, CLMO, ELMO, atIx1, moIx1, \
-                ixLS=-1, inpBaseName='' ):
+                ixLS=-1, raoType='uni', inpBaseName='', raoFlipAtoms=None ):
     # Vectorize atIx and make moIx strat from ZERO (not 1):
     atIx = np.array( atIx1 ) # Starting from 1
     moIx = np.array( moIx1 ) - 1 # Starting from 0
@@ -1167,18 +1173,15 @@ def proj_DM_WF( naoInfo, FchkInfo, CAONAO, CLMO, ELMO, atIx1, moIx1, \
         #  follow the order of appearance, i.e., 1, 2, 3, ..., which is NOT 
         #  necessarily the actural indices of atoms appeared in the given 
         #  molecule. The latter indices are stored in LP[] and BD[]
-        maxNLP = ixLS
-        if ixLS == -1:
-            maxNLP = inf
-        print( "Enumerating Lewis structures with at most", maxNLP, \
-               "lone pairs"  )
-        LP0, BD0 = lewis_read( NAt, NE, maxNLP )
+        LP0, BD0 = lewis_read( NAt, NE, inf )
 
         # Set actual indices of atoms:
+        atIx = np.array( atIx, dtype='i' )
         LP = list( map(lambda x: atIx[x-1], LP0 ) )
         BD = []
         for arr in BD0:
-            BD.append(  np.array( list( map(lambda x: atIx[x-1], arr) ) )  )
+            BD.append(  np.array( list( map(lambda x: atIx[x-1], arr) ), \
+                                  dtype='i' )  )
 
     #-- OPTION 2: Straightforward specification ----------
     else:
@@ -1226,33 +1229,16 @@ def proj_DM_WF( naoInfo, FchkInfo, CAONAO, CLMO, ELMO, atIx1, moIx1, \
 
     print( 'Using %i straightforwardly specified Lewis structures' % NLS )
 
-
     # Resonance atomic orbitals (RAOs) in AO basis (NAOs, Lowdin's AOs etc.):
-    # --> Universal RAOs that are independent of LSs
-    CRAO = rao_uni( D0, aoIx )
-    #-- Uncomment the following lines to output the RAOs into xxx.fchk--
-    #CAORAO = CAONAO @ CRAO
-    #FRAO = CAORAO.T @ F @ CAORAO
-    #E_RAO = np.diag( FRAO )
-    #writeFchkOrb( 'test_files/xxx.fchk', 
-    #        'test_files/xxx_RAO.fchk', CAORAO, E_RAO )
-    #writeFchkOrb( 'test_files/half-C24-F46.fchk', 
-    #        'test_files/half-C24-F46_RAO.fchk', CAORAO, E_RAO )
-    #writeFchkOrb( 'test_files/C24-F46-AM1.fchk', 
-    #        'test_files/C24-F46-AM1_RAO.fchk', CAORAO, E_RAO )
-    #writeFchkOrb( '../../test_files/coronene.fchk', 
-    #        '../../test_files/coronene_RAO.fchk', CAORAO, E_RAO )
-    #writeFchkOrb( 'test_files/O3_def2TZVPP.fchk', 
-    #        'test_files/O3_def2TZVPP_RAO.fchk', CAORAO, E_RAO )
-    #writeFchkOrb( 'test_files/O3_sto3g.fchk', 
-    #        'test_files/O3_sto3g_RAO.fchk', CAORAO, E_RAO )
-    #writeFchkOrb( 'test_files/naphthalene.fchk', 
-    #        'test_files/naphthalene_RAO.fchk', CAORAO, E_RAO )
-    #writeFchkOrb( 'HF.fchk', 
-    #        'HF_RAO.fchk', CAORAO, E_RAO )
-    #writeFchkOrb( 'FHF-.fchk', 
-    #        'FHF-_RAO.fchk', CAORAO, E_RAO )
-    #exit()
+    if raoType == 'uni': # Universal RAOs that are independent of LSs
+        CRAO = rao_uni( D0, aoIx, raoFlipAtoms )
+    elif raoType == 'uni-gen': # General universal RAOs
+        raise NotImplementedError( 'General universal RAOs not supported yet '
+                'in WFRT' )
+    else:
+        raise ValueError( 
+                'Unrecognized value for argument raoType in function '
+                'proj_DM_WF()' )
 
     # Write RAOs into a *.fchk file:
     if len(inpBaseName) > 0:
@@ -1462,7 +1448,8 @@ def wfrt_kekule( naoInfo, FchkInfo, CAONAO, CLMO, ELMO, atIx1, moIx1, \
 #   kekFileName: Name of *.kek file where Kekule structures are stored
 #   ndiv:        Divide file in n parts lest a huge file runs out of memory
 def proj_DM_WF_kekule( naoInfo, FchkInfo, CAONAO, CLMO, ELMO, atIx1, moIx1, \
-                 kekFileName, ndiv=1 ):
+                 kekFileName, ndiv=1, raoType='uni', inpBaseName='', \
+                 raoFlipAtoms=None ):
     if ndiv > 1:
         print( 'Dividing file %s into %i parts ...' % ( kekFileName, ndiv ) )
     elif ndiv <=0 :
@@ -1479,7 +1466,7 @@ def proj_DM_WF_kekule( naoInfo, FchkInfo, CAONAO, CLMO, ELMO, atIx1, moIx1, \
 
         # Calculate DMRT and WFRT projections:
         proj_DM_WF( naoInfo, FchkInfo, CAONAO, CLMO, ELMO, atIx1, moIx1, \
-                    ( LP, BD ) )
+                    ( LP, BD ), raoType, inpBaseName, raoFlipAtoms )
     return
 # enddef wfrt_kekule()
 
@@ -1546,6 +1533,21 @@ def wfrt_hmo_spec( hmoSol, ixLS ):
 
 
 
+# WFRT analysis in the simple Hueckel Molecular Orbital (HMO) framework using
+# only all possible Kekule structures:
+#   hmoSol:      Solution of simple HMO theory
+#   kekFileName:   Name of *.kek file where Kekule structures are stored
+def wfrt_hmo_kekule( hmoSol, kekFileName ):
+    # Read Kekule structures from external file:
+    print( 'Reading Kekule structures from file %s ...' % kekFileName )
+    LP, BD = readKekule( kekFileName )
+
+    # Perform WFRT analysis:
+    wfrt_hmo_spec( hmoSol, (LP,BD) )
+    return
+# enddef wfrt_hmo_kekule()
+
+
 # Calculate the projections of Lewis structures using both DMRT and WFRT, in
 # the simple Hueckel Molecular Orbital (HMO) framework:
 #   hmoSol:      Solution of simple HMO theory
@@ -1608,4 +1610,4 @@ def proj_DM_WF_kekule_hmo( hmoSol, kekFileName, ndiv=1 ):
     proj_DM_WF_kekule( aoIx, hmoSol, CAONAO, CLMO, ELMO, atIx1, moIx1, \
                        kekFileName, ndiv )
     return
-# enddef proj_DM_WF_hmo()
+# enddef proj_DM_WF_kekule_hmo()

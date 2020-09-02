@@ -149,14 +149,14 @@ def readControlFile( inputFileName ):
             if pat_lmos.match( line ):
                 for s in fields.split():
                     lmos.append( int(s) )
-                print( 'lmos = ', lmos )
+                # print( 'lmos = ', lmos )
                 continue
 
             # Indices of atoms:
             if pat_atoms.match( line ):
                 for s in fields.split():
                     atoms.append( int(s) )
-                print( 'atoms = ', atoms )
+                # print( 'atoms = ', atoms )
                 continue
 
             # Maximum number of lone pairs:
@@ -211,9 +211,19 @@ def readControlFile( inputFileName ):
 
             # Indices of the specified Lewis structures:
             if pat_lewis.match( line ):
+                LP = []
+                BD = []
                 for s in fields.split():
-                    lewis.append( int(s) )
-                print( 'lewis = ', lewis )
+                    # If s is an index of Lewis structures:
+                    if ':' not in s and '/' not in s:
+                        lewis.append( int(s) )
+                    else:
+                        lp, bd = parseLewis( s )
+                        LP.append( lp )
+                        BD.append( bd )
+                if len(LP) > 0 or len(BD) > 0:
+                    lewis = ( LP, BD )
+                # print( 'lewis = ', lewis )
                 continue
 
             # Whether using Kekule structures only:
@@ -290,6 +300,41 @@ def readControlFile( inputFileName ):
 
 
 #==============================================================================
+# Parse a string of Lewis structure
+#
+def parseLewis( s ):
+    lp = []
+    bd = []
+    f = s.split( '/' )
+    for ep in f: # for each electron pair:
+        # A lone pair:
+        if ':' in ep:
+            n = ep.replace( ':', '' )
+            if len(n) != 1:
+                raise ValueError( 'Invalid Lewis structure:', s )
+            if int(n) < 1:
+                raise ValueError( 'Invalid Lewis structure:', s )
+
+            lp.append( ep.replace( ':', '' ) )
+        elif '-' in ep:
+            b = ep.split( '-' )
+            if len(b) != 2:
+                raise ValueError( 'Invalid Lewis structure:', s )
+            b1 = int( b[0] )
+            b2 = int( b[1] )
+            if b1 < 1 or b2 < 1:
+                raise ValueError( 'Invalid Lewis structure:', s )
+            bd.append( b1 )
+            bd.append( b2 )
+
+    lp = np.array( lp, dtype='i' )
+    nbd = len(bd) // 2
+    bd = np.array( bd, dtype='i' ).reshape( nbd, 2 )
+    return ( lp, bd )
+#==============================================================================
+# enddef parseLewis()
+
+#==============================================================================
 # Perform an LMO job
 #
 def runJob_LMO( basename ):
@@ -335,24 +380,7 @@ def runJob_WFRT( basename, lmos, atoms, maxnlp, projcut, writeraos, \
     if kekule:
         print( 'Using only Kekule structures to expand the wave function' )
 
-    print()
-
-    # wfrt_hmo:
-    if huckel:
-        print( 'In the framework of simple Huckel molecular orbitals theory' )
-        # if len( lewis ) == 0 and not kekule:  # Not supported yet
-        if len( lewis ) == 0:
-            wfrt_hmo( hmoSol, atoms, maxnlp, projcut )
-        else:
-            wfrt_hmo_spec( hmoSol, lewis )
-        exit(0)
-
-    # wfrt:
-    if len( lewis ) == 0 and not kekule:
-        wfrt( naoInfo, FchkInfo, CAONAO, CNAOLMO, ELMO, atoms, lmos, maxnlp, \
-            projcut, 'uni', rao_tag, flipraos )
-    # wfrt_kekule:
-    elif kekule:
+    if kekule:
         # Generate all possible Kekule structures:
         kekFileName = basename + '.kek'
         if os.path.exists( kekFileName ):
@@ -367,6 +395,25 @@ def runJob_WFRT( basename, lmos, atoms, maxnlp, projcut, writeraos, \
                 enumKekule( writer, elem, FchkInfo.xyz )
                 print( 'File', kekFileName, 'written' )
 
+    print()
+
+    # wfrt_hmo:
+    if huckel:
+        print( 'In the framework of simple Huckel molecular orbitals theory' )
+        if len( lewis ) == 0 and not kekule:  # Not supported yet
+            wfrt_hmo( hmoSol, atoms, maxnlp, projcut )
+        elif kekule:
+            wfrt_hmo_kekule( hmoSol, kekFileName )
+        else:
+            wfrt_hmo_spec( hmoSol, lewis )
+        exit(0)
+
+    # wfrt:
+    if len( lewis ) == 0 and not kekule:
+        wfrt( naoInfo, FchkInfo, CAONAO, CNAOLMO, ELMO, atoms, lmos, maxnlp, \
+            projcut, 'uni', rao_tag, flipraos )
+    # wfrt_kekule:
+    elif kekule:
         wfrt_kekule( naoInfo, FchkInfo, CAONAO, CNAOLMO, ELMO, atoms, lmos, \
                  kekFileName, 'uni' )
     # wfrt_spec:
@@ -449,7 +496,7 @@ def runJob_DMRT( basename, lmos, atoms, maxnlp, precdmrt, degcridmrt, \
 #==============================================================================
 # Perform a PROJ job
 #
-def runJob_PROJ( basename, lmos, atoms, maxnlp, writeraos, \
+def runJob_PROJ( basename, lmos, atoms, maxnlp, writeraos, flipraos, \
         lewis, kekule, huckel ):
     print( 'Performing wave function and density matrix projection '
            'calculations ...' )
@@ -503,14 +550,14 @@ def runJob_PROJ( basename, lmos, atoms, maxnlp, writeraos, \
     # proj_DM_WF:
     if len( lewis ) == 0 and not kekule:
         proj_DM_WF( naoInfo, FchkInfo, CAONAO, CNAOLMO, ELMO, atoms, lmos, \
-                -1, rao_tag )
-    # wfrt_kekule:
+                -1, 'uni', rao_tag, flipraos )
+    # proj_DM_WF_kekule:
     elif kekule:
-        wfrt_kekule( naoInfo, FchkInfo, CAONAO, CNAOLMO, ELMO, atoms, lmos, \
-                 kekFileName, 'uni' )
-    # wfrt_spec:
+        proj_DM_WF_kekule( naoInfo, FchkInfo, CAONAO, CNAOLMO, ELMO, atoms, \
+                lmos, kekFileName, 1, 'uni', rao_tag, flipraos )
+    # proj_DM_WF_spec:
     else:
-        wfrt_spec( naoInfo, FchkInfo, CAONAO, CNAOLMO, ELMO, atoms, lmos, \
+        proj_DM_WF( naoInfo, FchkInfo, CAONAO, CNAOLMO, ELMO, atoms, lmos, \
             lewis, 'uni', rao_tag, flipraos )
 #==============================================================================
 # enddef runJob_PROJ()
@@ -562,7 +609,7 @@ elif p.job == 'DMRT':
 #-------- PROJ job --------
 elif p.job == 'PROJ':
     runJob_PROJ( p.basename, p.lmos, p.atoms, p.maxnlp, \
-            p.writeraos, p.lewis, p.kekule, p.huckel )
+            p.writeraos, p.flipraos, p.lewis, p.kekule, p.huckel )
     exit(0)
 
 #------ Invalid job type --------
