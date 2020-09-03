@@ -20,7 +20,7 @@ from hmo import *
 from wfrt import *
 
 
-# Parameters in control file:
+# Parameters in the input file:
 class param:
     def __init__( self, basename, job, lmos, atoms, maxnlp, projcut, \
             writeraos, flipraos, lewis, kekule, huckel, precdmrt, degcridmrt ):
@@ -42,7 +42,7 @@ class param:
 
 
 #==============================================================================
-# Read the input control file
+# Read the input file
 #
 # Return:
 #   An instance of class papa storing all input values
@@ -577,17 +577,17 @@ print( 'Copyright 2020 Yang Wang' )
 print( '' )
 
 if len(sys.argv) < 2:
-    print( 'Usage: python ezreson.py <control-file>' )
+    print( 'Usage: python ezreson.py <input-file>' )
     exit(1)
 
-#-------- Parse the control file: --------
-controlFile = sys.argv[1] # Get the control file name from command-line
-# print( controlFile )
-# Check if the control file exists:
-if not os.path.isfile( controlFile ):
-    print( 'Control file', controlFile, 'not found\nAbort' )
+#-------- Parse the input file: --------
+inputFile = sys.argv[1] # Get the input file name from command-line
+# print( inputFile )
+# Check if the input file exists:
+if not os.path.isfile( inputFile ):
+    print( 'Control file', inputFile, 'not found\nAbort' )
     exit(1)
-p = readControlFile( controlFile )
+p = readControlFile( inputFile )
 
 #-------- LMO job --------
 if p.job == 'LMO':
