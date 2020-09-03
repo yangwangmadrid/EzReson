@@ -106,7 +106,7 @@ Atoms = 1 2 3 4 5 6
 
 Then, use the following command to run the WFRT job:
  
-ezreson benzene_wfrt.in > benzene_wfrt.out
+`ezreson benzene_wfrt.in > benzene_wfrt.out`
 
 **NOTE**: For the indices of atoms, *the order matters* in order to apply Rumer's rule for determination of linearly independent set of Lewis structures. For monocyclic systems, the ordered atoms should form a circle. For other systems, the choice is somewhat arbitrary, but it is recommended that the atoms be disposed to form a circle as much as possible.
 
