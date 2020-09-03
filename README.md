@@ -145,7 +145,7 @@ Reproducibility =  99.519143%
 
 Use the option `MAXNLP = <num>` in the input file to set the maximum number of lone pairs allowed in the Lewis structures
 
-**NOTE**: <num> can be 0, 1, 2, ..., or inf 
+**NOTE**: `<num>` can be 0, 1, 2, ..., or inf 
 
 
 ### WFRT analysis using projection cutoff to truncate the set of Lewis structures
@@ -169,6 +169,12 @@ You can perform the WFRT analysis using only a user-defined Lewis structures, wh
     It means that only the 1st, 2nd, 9th and 10th Lewis structures are to be used to expand the wave function. Note that the indices follow the descending order of the projection of the Lewis structures onto the actual wave function.
 
   - Specification by writing explicitly the Lewis structures
+
+    An example:
+    ```
+    LEWIS = 1-2/3-4/5-6  1:/2-3/5: 2:/4:/6:
+    ```
+    In this example, we have defined three Lewis structures. The first one is a Kekule structure, where `-` denotes the bond connect two atoms. In the second Lewis structure, each of atoms 1 and 5 has a lone pair and atoms 2 and 3 forms a bond. The last Lewis structure contains three lone pairs located, respectively at atoms 2, 4 and 6.
 
 
 ### WFRT analysis using all Kekule structures
