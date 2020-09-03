@@ -179,6 +179,14 @@ You can perform the WFRT analysis using only a user-defined Lewis structures, wh
 
 ### WFRT analysis using all Kekule structures
 
+To perform a WFRT analysis using only all possible Kekule structures, set the KEKULE parameter to be TRUE:
+```
+KEKULE = TRUE
+```
+
+**NOTE**: The two options KEKULE and LEWIS are repulsive to each other, i.e., they cannot be present at the same time in the input file.
+
+
 ### WFRT analysis in the framework of simple Hueckel molecular orbital (HMO) theory
 
 ### A typical density-matrix-based resonance theory (DMRT) analysis
