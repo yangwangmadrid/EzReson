@@ -56,7 +56,60 @@ As you see, you will find the result of resonance analysis by EzReson in file "a
 
 ### A typical wave-function-based resonance theory (WFRT) analysis
 
-1. Perform LMO
+Let us take benzene as an example. Suppose that after the DFT calculations of benzene you have obtained the four output files, Ph.gjf, Ph.out, Ph.fchk and Ph.33.
+
+1. Perform an LMO calculation to obtain Pipek--Mezey localized MOs
+
+Prepare an input file, named "benzene_lmo.in" as:
+```
+File = Ph
+Job = LMO
+```
+
+**NOTE: The letters in EzReon's input file are case-insensitive.
+
+Then, use the following command to run the LMO job:
+
+ezreson benzene_lmo.in > benzene_lmo.out
+
+After finishing the LMO calculation correctly, the following output files will
+be generated:
+- Ph_CNAOLMO.dat
+- Ph_ELMO.dat
+- Ph_LMO.fchk
+
+
+2. Identify the LMOs associated with the resonance subsystem
+
+In this particular case of benezene, we are to find the occupied LMOs corresponding to the pi-conjugate system.
+To this end, open file "Ph_LMO.fchk" with visualization software like JMol or Gabedit. For JMol, after opening Ph_LMO.fchk, type in the script console:
+isosurface mo 21
+and the LMO-#21 (which is the HOMO) will be displayed. You will see that this LMO belongs to the pi-resonance system and is thus selected.
+Then, keep on inspecting lower LMOs, #20, #19, ..., until all LMOs belonging to the resonance subsystem have been chosen. Since in this case there are 6 electrons in the resonance subsystem, you only need to identify 3 LMOs.
+
+As for benzene, the resonating LMOs are identified as 19, 20 and 21.
+
+**Note: Other visualization softwares may not support reading *.fchk for visualization of orbitals. But you can always convert *.fchk file to *.cube file by the cubegen utility in the Gaussian suite. Then, a great variety of visualization tools are able to read the *.cube file to visualize molecular orbitals.
+
+
+3. Perform the WRFT analysis
+
+We have determined that the LMOs for resonance subsystem of benzene are #19, 20 and 21. We also see that the involved atoms are the carbon atoms, whose indices are 1, 2, 3, 4, 5 and 6 as indicated in Ph.gjf.
+
+Accordingly, we prepare an input file, named "benzene_wfrt.in" as:
+```
+File = Ph
+Job = WFRT
+LMOs = 19 20 21
+Atoms = 1 2 3 4 5 6
+```
+
+Then, use the following command to run the WFRT job:
+ 
+ezreson benzene_wfrt.in > benzene_wfrt.out
+
+**Note: For the indices of atoms, the order matters in order to apply Rumer's rule for determination of linearly independent set of Lewis structures. For monocyclic systems, the ordered atoms should form a circle. For other systems, the choice is somewhat arbitrary, but it is recommended that the atoms be disposed to form a circle as much as possible.
+
 
 ### WFRT analysis using Lewis structures with maximum number of lone pairs
 
