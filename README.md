@@ -189,7 +189,9 @@ Kekule = TRUE
 
 ### WFRT analysis in the framework of simple Hueckel molecular orbital (HMO) theory
 
+
 ### A typical density-matrix-based resonance theory (DMRT) analysis
+
 
 ### DMRT analysis in the HMO framework
 
