@@ -111,6 +111,25 @@ Then, use the following command to run the WFRT job:
 **NOTE**: For the indices of atoms, *the order matters* in order to apply Rumer's rule for determination of linearly independent set of Lewis structures. For monocyclic systems, the ordered atoms should form a circle. For other systems, the choice is somewhat arbitrary, but it is recommended that the atoms be disposed to form a circle as much as possible.
 
 
+Fragment of the output:
+```
+---------------------------------------------------------------------------------------------------------
+  No. Projection Coefficient      RE  REeff  Mulli. Bickel. Ros-Sc.  Lowdin    PWSO  Lewis structure
+---------------------------------------------------------------------------------------------------------
+    1   0.559795   0.3333335  175.96  -31.51  18.75%  22.85%   9.60%  14.59%  19.80%  1-2 3-4 5-6
+    2   0.559795   0.3333335  175.96  -31.51  18.75%  22.85%   9.60%  14.59%  19.80%  2-3 4-5 1-6
+   15   0.221154   0.2222227  347.79   -8.30   4.94%   2.70%   4.27%   2.77%   2.44%  4: 2-3 5-6
+   16   0.221154   0.2222227  347.79   -8.30   4.94%   2.70%   4.27%   2.77%   2.44%  1: 2-3 5-6
+   17   0.221154   0.2222219  347.80   -8.30   4.94%   2.70%   4.27%   2.77%   2.44%  6: 1-2 4-5
+   18   0.221154   0.2222219  347.80   -8.30   4.94%   2.70%   4.27%   2.77%   2.44%  3: 1-2 4-5
+   19   0.221154   0.2222219  347.80   -8.30   4.94%   2.70%   4.27%   2.77%   2.44%  2: 3-4 1-6
+   20   0.221154   0.2222219  347.80   -8.30   4.94%   2.70%   4.27%   2.77%   2.44%  5: 3-4 1-6
+... ...
+... ...
+---------------------------------------------------------------------------------------------------------
+Reproducibility =  99.519143%
+```
+
 ### WFRT analysis using Lewis structures with maximum number of lone pairs
 
 ### WFRT analysis using projection cutoff to truncate the set of Lewis structures
