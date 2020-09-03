@@ -49,7 +49,7 @@ Then, you are ready to go.
 3. Change to the working directory and prepare the input file for EzReson (vide infra), say, "abc_wfrt.in"
 
 4. Simply execute the following command:
-    ezreson abc_wfrt.in > abc_wfrt.out
+    `ezreson abc_wfrt.in > abc_wfrt.out`
 
 As you see, you will find the result of resonance analysis by EzReson in file "abc_wfrt.out".
 
@@ -66,11 +66,11 @@ File = Ph
 Job = LMO
 ```
 
-**NOTE**: The letters in EzReon's input file are case-insensitive.
+**NOTE**: The letters in EzReon's input file are *case-insensitive*.
 
 Then, use the following command to run the LMO job:
 
-ezreson benzene_lmo.in > benzene_lmo.out
+`ezreson benzene_lmo.in > benzene_lmo.out`
 
 After finishing the LMO calculation correctly, the following output files will
 be generated:
