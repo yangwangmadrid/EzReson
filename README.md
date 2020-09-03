@@ -36,7 +36,7 @@ Then, you are ready to go.
 ### Gaussian calculations
 1. In the input file (e.g., abc.gjf), add in the route section the keywords "fchk=All Pop=NBO6Read" while at the end of the file add "$NBO NOBOND AONAO=W $END". In this way, the checkpoint file "Test.FChk" and the NBO matrix file "abc.33" will be generated. Then, rename "Test.FChk" to "abc.fchk". The Gaussian output file should have the extension name of ".out" (If necessary, "abc.log" ought to be renamed as "abc.out").
 
-NOTES: 
+**NOTES**: 
 - It is strongly recommended to use the NBO program later than version 5.0. The free version of NBO 3.1 implemented in Gaussian package would be problematic and give unreliable results.
 - Do not use "fchk=All" to generate the checkpoint file if there are two such jobs running at the same working directory at the same time. Otherwise, the two jobs will write the same "Test.FChk" file. Instead, add the "%chk=abc.chk" to obtain the checkpoint file "abc.chk". Then, use the formchk utility to convert "abc.chk" to "abc.fchk".
 
@@ -66,7 +66,7 @@ File = Ph
 Job = LMO
 ```
 
-**NOTE: The letters in EzReon's input file are case-insensitive.
+**NOTE**: The letters in EzReon's input file are case-insensitive.
 
 Then, use the following command to run the LMO job:
 
@@ -89,7 +89,7 @@ Then, keep on inspecting lower LMOs, #20, #19, ..., until all LMOs belonging to 
 
 As for benzene, the resonating LMOs are identified as 19, 20 and 21.
 
-**Note: Other visualization softwares may not support reading *.fchk for visualization of orbitals. But you can always convert *.fchk file to *.cube file by the cubegen utility in the Gaussian suite. Then, a great variety of visualization tools are able to read the *.cube file to visualize molecular orbitals.
+**NOTE**: Other visualization softwares may not support reading *.fchk for visualization of orbitals. But you can always convert *.fchk file to *.cube file by the cubegen utility in the Gaussian suite. Then, a great variety of visualization tools are able to read the *.cube file to visualize molecular orbitals.
 
 
 3. Perform the WRFT analysis
@@ -108,7 +108,7 @@ Then, use the following command to run the WFRT job:
  
 ezreson benzene_wfrt.in > benzene_wfrt.out
 
-**Note: For the indices of atoms, the order matters in order to apply Rumer's rule for determination of linearly independent set of Lewis structures. For monocyclic systems, the ordered atoms should form a circle. For other systems, the choice is somewhat arbitrary, but it is recommended that the atoms be disposed to form a circle as much as possible.
+**NOTE**: For the indices of atoms, *the order matters* in order to apply Rumer's rule for determination of linearly independent set of Lewis structures. For monocyclic systems, the ordered atoms should form a circle. For other systems, the choice is somewhat arbitrary, but it is recommended that the atoms be disposed to form a circle as much as possible.
 
 
 ### WFRT analysis using Lewis structures with maximum number of lone pairs
