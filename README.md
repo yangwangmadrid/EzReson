@@ -34,11 +34,11 @@ Then, you are ready to go.
 ## How to use
 
 ### Gaussian calculations
-1. In the input file (e.g., abc.gjf), add in the route section the keywords "fchk=All Pop=NBO6Read" while at the end of the file add "$NBO NOBOND AONAO=W $END". In this way, the checkpoint file "Test.FChk" and the NBO matrix file "abc.33" will be generated. Then, rename "Test.FChk" to "abc.fchk". The Gaussian output file should have the extension name of ".out" (If necessary, "abc.log" ought to be renamed as "abc.out").
+1. In the input file (e.g., abc.gjf), add in the route section the keywords `fchk=All Pop=NBO6Read` while at the end of the file add `$NBO NOBOND AONAO=W $END`. In this way, the checkpoint file "Test.FChk" and the NBO matrix file "abc.33" will be generated. Then, rename "Test.FChk" to "abc.fchk". The Gaussian output file should have the extension name of ".out" (If necessary, "abc.log" ought to be renamed as "abc.out").
 
 **NOTES**: 
 - It is strongly recommended to use the NBO program later than version 5.0. The free version of NBO 3.1 implemented in Gaussian package would be problematic and give unreliable results.
-- Do not use "fchk=All" to generate the checkpoint file if there are two such jobs running at the same working directory at the same time. Otherwise, the two jobs will write the same "Test.FChk" file. Instead, add the "%chk=abc.chk" to obtain the checkpoint file "abc.chk". Then, use the formchk utility to convert "abc.chk" to "abc.fchk".
+- Do not use `fchk=All` to generate the checkpoint file if there are two such jobs running at the same working directory at the same time. Otherwise, the two jobs will write the same "Test.FChk" file. Instead, add the `%chk=abc.chk` to obtain the checkpoint file "abc.chk". Then, use the formchk utility to convert "abc.chk" to "abc.fchk".
 
 2. Make sure that the following four files, as the inputs for EzReson, are in the same working directory:
 - abc.gjf
@@ -158,13 +158,13 @@ ProjCut = 0.1
 
 ### WFRT analysis using specified Lewis structures
 
-You can perform the WFRT analysis using only a user-defined Lewis structures, which can be specified in the input file by using the LEWIS keyword. There are two ways of specifying Lewis structures.
+You can perform the WFRT analysis using only a user-defined Lewis structures, which can be specified in the input file by using the `Lewis` keyword. There are two ways of specifying Lewis structures.
 
   - Specification with indices of Lewis structures:
 
     Here is an example:
     ```
-    LEWIS = 1 2 9 10
+    Lewis = 1 2 9 10
     ```
     It means that only the 1st, 2nd, 9th and 10th Lewis structures are to be used to expand the wave function. Note that the indices follow the descending order of the projection of the Lewis structures onto the actual wave function.
 
@@ -172,19 +172,19 @@ You can perform the WFRT analysis using only a user-defined Lewis structures, wh
 
     An example:
     ```
-    LEWIS = 1-2/3-4/5-6  1:/2-3/5: 2:/4:/6:
+    Lewis = 1-2/3-4/5-6  1:/2-3/5: 2:/4:/6:
     ```
     In this example, we have defined three Lewis structures. The first one is a Kekule structure, where `-` denotes the bond connect two atoms. In the second Lewis structure, each of atoms 1 and 5 has a lone pair and atoms 2 and 3 forms a bond. The last Lewis structure contains three lone pairs located, respectively at atoms 2, 4 and 6.
 
 
 ### WFRT analysis using all Kekule structures
 
-To perform a WFRT analysis using only all possible Kekule structures, set the KEKULE parameter to be TRUE:
+To perform a WFRT analysis using only all possible Kekule structures, set the `Kekule` parameter to be TRUE:
 ```
-KEKULE = TRUE
+Kekule = TRUE
 ```
 
-**NOTE**: The two options KEKULE and LEWIS are repulsive to each other, i.e., they cannot be present at the same time in the input file.
+**NOTE**: The two options `Kekule` and `Lewis` are repulsive to each other, i.e., they cannot be present at the same time in the input file.
 
 
 ### WFRT analysis in the framework of simple Hueckel molecular orbital (HMO) theory
