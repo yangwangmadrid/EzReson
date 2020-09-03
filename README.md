@@ -58,7 +58,7 @@ As you see, you will find the result of resonance analysis by EzReson in file "a
 
 Let us take benzene as an example. Suppose that after the DFT calculations of benzene you have obtained the four output files, Ph.gjf, Ph.out, Ph.fchk and Ph.33.
 
-1. Perform an LMO calculation to obtain Pipek--Mezey localized MOs
+**1. Perform an LMO calculation to obtain Pipek--Mezey localized MOs**
 
 Prepare an input file, named "benzene_lmo.in" as:
 ```
@@ -79,11 +79,11 @@ be generated:
 - Ph_LMO.fchk
 
 
-2. Identify the LMOs associated with the resonance subsystem
+**2. Identify the LMOs associated with the resonance subsystem**
 
 In this particular case of benezene, we are to find the occupied LMOs corresponding to the pi-conjugate system.
 To this end, open file "Ph_LMO.fchk" with visualization software like JMol or Gabedit. For JMol, after opening Ph_LMO.fchk, type in the script console:
-isosurface mo 21
+`isosurface mo 21`
 and the LMO-#21 (which is the HOMO) will be displayed. You will see that this LMO belongs to the pi-resonance system and is thus selected.
 Then, keep on inspecting lower LMOs, #20, #19, ..., until all LMOs belonging to the resonance subsystem have been chosen. Since in this case there are 6 electrons in the resonance subsystem, you only need to identify 3 LMOs.
 
@@ -92,7 +92,7 @@ As for benzene, the resonating LMOs are identified as 19, 20 and 21.
 **NOTE**: Other visualization softwares may not support reading *.fchk for visualization of orbitals. But you can always convert *.fchk file to *.cube file by the cubegen utility in the Gaussian suite. Then, a great variety of visualization tools are able to read the *.cube file to visualize molecular orbitals.
 
 
-3. Perform the WRFT analysis
+**3. Perform the WRFT analysis**
 
 We have determined that the LMOs for resonance subsystem of benzene are #19, 20 and 21. We also see that the involved atoms are the carbon atoms, whose indices are 1, 2, 3, 4, 5 and 6 as indicated in Ph.gjf.
 
