@@ -111,7 +111,7 @@ Then, use the following command to run the WFRT job:
 **NOTE**: For the indices of atoms, *the order matters* in order to apply Rumer's rule for determination of linearly independent set of Lewis structures. For monocyclic systems, the ordered atoms should form a circle. For other systems, the choice is somewhat arbitrary, but it is recommended that the atoms be disposed to form a circle as much as possible.
 
 
-Fragment of the output:
+**Fragment of the output**:
 ```
 Performing Wave Function based Resonance Theory (WFRT) calculations ...
  
