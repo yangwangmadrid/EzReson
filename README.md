@@ -248,7 +248,7 @@ It is recommended to check the phase matching between the reduced atomic orbital
 
 Usually, the phases of the RAOs are automatically determined by EzReson, which
 works quite successfully for most of the cases. However, somehow it might fail
-occasionally. A known example is given by the 3c-4e pi-conjugate system in the ozone molecule. In the HOMO of O3, the two terminal O atoms have an off-phase combination, which is rather odd.
+occasionally. A known example is given by the 3c-4e pi-conjugate system in the ozone molecule. In the HOMO of O3, the two terminal O atoms have an off-phase combination, which is rather exceptional.
 
 To verify that all RAO phases automatically determined by EzReson are correctly
 matched, one should active the `writeRAOs` option in the input file to output
