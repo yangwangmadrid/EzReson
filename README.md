@@ -215,27 +215,76 @@ atoms = 1 2 3 4 5 6
 The keywords such as `Lewis` and `Kekule` are also valid for DMRT analysis.
 
 **NOTES**: 
-  1. We strongly discourage the application of the DMRT, for this theory is proved to have fundamental and intrinsic inadequacies.
+  1. We strongly discourage the application of the DMRT, for this theory has been proved to have fundamental and intrinsic inadequacies.
 
   2. One may still use the projections of the density matrices associated with the Lewis strutures onto the actual density matrix of the resonance subsystem, as they provide a way to measure how a given Lewis struture ressembles the actual electronic structure. For this purpose, a `PROJ` job should  be carried out (see below).
 
 
 ### DMRT analysis in the HMO framework
 
-Just switch on the `Huckel` option to perform a DMRT analysis in the HMO framework
+Just switch on the `Huckel` option to perform a DMRT analysis in the HMO framework.
 
 
 ### Projection calculations
 
-resemble
+The calculation of projections is much cheaper than a full expansion calculation, as the former scales as O(N) while the latter scales from O(N^3) to O(N^2). Projecitons can also provide useful information. The wave function or density matrix projection of a Lewis structure may be regarded as the resemblence of that Lewis structure to the actual molecular structure.
 
+To launch a projection job, just indicate it in the `Job` parameter:
+```
+File = Ph
+Job = PROJ
+LMOs = 19 20 21
+Atoms = 1 2 3 4 5 6
+```
+By running this job, wave function projections, density matrix projections and
+the energies of Lewis structures will be obtained in the same output.
+
+Other options, like `Lewis`, `Kekule`, `Huckel` can be used for a `PROJ` job.
 
 
 ## Cautions
 
-RAOs
-ozone
+It is recommended to check the phase matching between the reduced atomic orbitals (RAOs) if the analysis is not on the basis of HMO theory and the resonance system is not a *planar* *pi-conjugate* system.
 
+Usually, the phases of the RAOs are automatically determined by EzReson, which
+works quite successfully for most of the cases. However, somehow it might fail
+occasionally. A known example is given by the 3c-4e pi-conjugate system in the ozone molecule. In the HOMO of O3, the two terminal O atoms have an off-phase combination, which is rather odd.
+
+To verify that all RAO phases automatically determined by EzReson are correctly
+matched, one should active the `writeRAOs` option in the input file to output
+the RAOs:
+```
+file = Ph
+job = PROJ
+LMOs = 19 20 21
+atoms = 1 2 3 4 5 6
+Lewis = 1
+writeRAOs = TRUE
+```
+This is simple projection job that only calculate the projection of one Lewis
+structure (so it is very fast). By running this job, a file named "Ph_RAO.fchk"
+is generated. By opening this fchk with softwares like JMol, one can visulized the RAOs atom by atom to check if all RAOs are in phase.
+
+### What to do if all RAOs are not in phase?
+
+  1. Set the `flipRAOs` to zero and rerun the job:
+     ```
+     writeRAOs = TRUE
+     flipRAOs = 0
+     ```
+     and obtain a new fchk file of RAOs, "Ph_RAO.fchk".
+
+  2. Visualize the new set of RAOs and pick out all RAOs with opposite phases
+     (just record the corresponding indices of atoms, say, 2, 3, 6)
+
+  3. Set the `flipRAOs` to the indices of atoms whose RAO needs to be flipped:
+     ```
+     writeRAOs = TRUE
+     flipRAOs = 2, 3, 6
+     ```
+
+  4. Rerun the job and visualize "Ph_RAO.fchk" again to finally verify the phase
+     matching of the RAOs.
 
 ## Limitations
 
