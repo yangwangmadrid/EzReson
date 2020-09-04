@@ -174,12 +174,12 @@ You can perform the WFRT analysis using only a user-defined Lewis structures, wh
     ```
     Lewis = 1-2/3-4/5-6  1:/2-3/5: 2:/4:/6:
     ```
-    In this example, we have defined three Lewis structures. The first one is a Kekule structure, where `-` denotes the bond connect two atoms. In the second Lewis structure, each of atoms 1 and 5 has a lone pair and atoms 2 and 3 forms a bond. The last Lewis structure contains three lone pairs located, respectively at atoms 2, 4 and 6.
+    In this example, we have defined three Lewis structures. The first one is a Kekulé structure, where `-` denotes the bond connect two atoms. In the second Lewis structure, each of atoms 1 and 5 has a lone pair and atoms 2 and 3 forms a bond. The last Lewis structure contains three lone pairs located, respectively at atoms 2, 4 and 6.
 
 
-### WFRT analysis using all Kekule structures
+### WFRT analysis using all Kekulé structures
 
-To perform a WFRT analysis using only all possible Kekule structures, set the `Kekule` parameter to be TRUE:
+To perform a WFRT analysis using only all possible Kekulé structures, set the `Kekule` parameter to be TRUE:
 ```
 Kekule = TRUE
 ```
@@ -189,11 +189,40 @@ Kekule = TRUE
 
 ### WFRT analysis in the framework of simple Hueckel molecular orbital (HMO) theory
 
+The WFRT analysis can be performed in the simple HMO framework. This is done by turning on the `Huckel` option in the input file, and there is no need to set the LMOs.
+
+The simplest example:
+```
+File = Ph
+Job = WFRT
+Atoms = 1 2 3 4 5 6
+Huckel = TRUE
+```
+
+Furthermore, the use of `Huckel` can also be accompanied with other keywords, including `MaxNLP`, `ProjCut`, `Kekule` and `Lewis`, for the respective purposes.
+
 
 ### A typical density-matrix-based resonance theory (DMRT) analysis
 
+A typical example for a DMRT analysis is as follows:
+```
+file = Ph
+job = DMRT
+LMOs = 19 20 21
+atoms = 1 2 3 4 5 6
+```
+
+The keywords such as `Lewis` and `Kekule` are also valid for DMRT analysis.
+
+**NOTES**: 
+  1. We strongly discourage the application of the DMRT, for this theory is proved to have fundamental and intrinsic inadequacies.
+
+  2. One may still use the projections of the density matrices associated with the Lewis strutures onto the actual density matrix of the resonance subsystem, as they provide a way to measure how a given Lewis struture ressembles the actual electronic structure. For this purpose, a `PROJ` job should  be carried out (see below).
+
 
 ### DMRT analysis in the HMO framework
+
+Just switch on the `Huckel` option to perform a DMRT analysis in the HMO framework
 
 
 ### Projection calculations
