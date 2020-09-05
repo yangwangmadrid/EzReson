@@ -369,6 +369,26 @@ the RAOs atom by atom to check if all RAOs are in phase.
   4. Rerun the job and visualize "Ph_RAO.fchk" again to finally verify the phase
      matching of the RAOs.
 
+
 ## Limitations
 
+The current WFRT scheme some limitations in its applicability. In the near 
+future, we will be endeavoring to extend and generalize the approach for a 
+wider range of applications.
+
+The following aspects will be considered in our future work:
+
+- Open-shell systems
+
+- Going beyond the effective minimal atomic basis approximation, which will
+  improve the reproducibilty of wave function
+
+- Using the varying RAOs that depend on each specific Lewis structures and 
+  allowing to use multiple RAOs for one atom, which will make the method able to
+  deals with systems like SO_4^{2-}, PF5, B2H6, etc
+
+- Going beyond DFT/HF wave functions to enable the expansion of multireference
+  wave functions
+
+- Excited states
 
