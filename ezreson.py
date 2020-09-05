@@ -366,7 +366,8 @@ def runJob_WFRT( basename, lmos, atoms, maxnlp, projcut, writeraos, \
         CAONAO = readNBOMat( basename + '.33', naoInfo.NBas, naoInfo.NNAO  )
         CNAOLMO, ELMO = genLMOs( FchkInfo, naoInfo, CAONAO, basename )
     else:
-        hmoSol = hmo( basename + '.xyz' )
+        #hmoSol = hmo( basename + '.xyz' )
+        hmoSol = hmo( basename + '.gjf' )
 
     # Wave-function based resonance theory (WFRT) analysis:
     if projcut != 0:
@@ -440,7 +441,8 @@ def runJob_DMRT( basename, lmos, atoms, maxnlp, precdmrt, degcridmrt, \
         CAONAO = readNBOMat( basename + '.33', naoInfo.NBas, naoInfo.NNAO  )
         CNAOLMO, ELMO = genLMOs( FchkInfo, naoInfo, CAONAO, basename )
     else:
-        hmoSol = hmo( basename + '.xyz' )
+        #hmoSol = hmo( basename + '.xyz' )
+        hmoSol = hmo( basename + '.gjf' )
 
     # Density-matrix based resonance theory (DMRT) analysis:
     print( 'Minimum reproducibility of %.6f%% is required' % \
