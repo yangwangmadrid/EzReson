@@ -41,8 +41,8 @@ does not take on the responsibility of providing technical support.
 ### Installation
 1. Put the folder the EzReson package to any location as you like, which is 
 referred to as the source directory hereafter. 
-2. Open with a text editor the script file ezreson.sh in the source directory 
-and set the EZREON_DIR variable as the path of the source directory.
+2. Open with a text editor the script file "ezreson" in the source directory 
+and set the `EZREON_DIR` variable as the path of the source directory.
 3. Add the source directory to the global environment variable PATH in e.g., 
 .bash_profile or .bashrc under your HOME directory.
 
@@ -255,7 +255,7 @@ i.e., they cannot be present at the same time in the input file.
 ### WFRT analysis in the framework of simple Hueckel molecular orbital (HMO) theory
 
 The WFRT analysis can be performed in the simple HMO framework. This is done by 
-turning on the `Hückel` option in the input file, and there is no need to set 
+turning on the `Huckel` option in the input file, and there is no need to set 
 the LMOs.
 
 The simplest example:
@@ -263,10 +263,10 @@ The simplest example:
 File = Ph
 Job = WFRT
 Atoms = 1 2 3 4 5 6
-Hückel = TRUE
+Huckel = TRUE
 ```
 
-Furthermore, the use of `Hückel` can also be accompanied with other keywords, 
+Furthermore, the use of `Huckel` can also be accompanied with other keywords, 
 including `MaxNLP`, `ProjCut`, `Kekule` and `Lewis`, for the respective 
 purposes.
 
@@ -296,7 +296,7 @@ The keywords such as `Lewis` and `Kekule` are also valid for DMRT analysis.
 
 ### DMRT analysis in the HMO framework
 
-Just switch on the `Hückel` option to perform a DMRT analysis in the HMO 
+Just switch on the `Huckel` option to perform a DMRT analysis in the HMO 
 framework.
 
 
@@ -318,7 +318,7 @@ Atoms = 1 2 3 4 5 6
 By running this job, wave function projections, density matrix projections and
 the energies of Lewis structures will be obtained in the same output.
 
-Other options, like `Lewis`, `Kekule`, `Hückel` can be used for a `PROJ` job.
+Other options, like `Lewis`, `Kekule`, `Huckel` can be used for a `PROJ` job.
 
 
 ## Cautions
