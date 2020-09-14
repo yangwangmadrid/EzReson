@@ -39,12 +39,12 @@ does not take on the responsibility of providing technical support.
 - scipy >= 1.5.1
 
 ### Installation
-1. Put the folder the EzReson package to any location as you like, which is 
-referred to as the source directory hereafter. 
+1. Place the folder of the EzReson package to any location as you like, which is
+ referred to as the source directory hereafter. 
 2. Open with a text editor the script file "ezreson" in the source directory 
 and set the `EZREON_DIR` variable as the path of the source directory.
-3. Add the source directory to the global environment variable PATH in e.g., 
-.bash_profile or .bashrc under your HOME directory.
+3. Add the source directory to the global environment variable `PATH` in e.g., 
+".bash_profile" or ".bashrc" under your HOME directory.
 
 Then, you are ready to go.
 
@@ -65,9 +65,9 @@ free version of NBO 3.1 implemented in Gaussian package would be problematic and
  give unreliable results.
 - Do not use `fchk=All` to generate the checkpoint file if there are two such 
 jobs running at the same working directory at the same time. Otherwise, the two 
-jobs will write the same "Test.FChk" file. Instead, add the `%chk=abc.chk` to 
-obtain the checkpoint file "abc.chk". Then, use the formchk utility to convert 
-"abc.chk" to "abc.fchk".
+jobs will write the same "Test.FChk" file. Instead, add the `%chk=abc.chk` line 
+to obtain the checkpoint file "abc.chk". Then, use Gaussian's formchk utility to
+ convert "abc.chk" to "abc.fchk".
 
 2. Make sure that the following four files, as the inputs for EzReson, are in 
 the same working directory:
@@ -126,23 +126,23 @@ Gabedit. For JMol, after opening Ph_LMO.fchk, type in the script console:
 `isosurface mo 21` and the LMO-#21 (which is the HOMO) will be displayed. You 
 will see that this LMO belongs to the pi-resonance system and is thus selected.
 Then, keep on inspecting lower LMOs, #20, #19, ..., until all LMOs belonging to 
-the resonance subsystem have been chosen. Since in this case there are 6 
-electrons in the resonance subsystem, you only need to identify 3 LMOs.
+the resonance subsystem have been chosen. Since in this particular case there 
+are 6 electrons in the resonance subsystem, you only need to identify 3 LMOs.
 
 As for benzene, the resonating LMOs are identified as 19, 20 and 21.
 
 **NOTE**: Other visualization softwares may not support reading *.fchk for 
 visualization of orbitals. But you can always convert *.fchk file to *.cube file
  by the cubegen utility in the Gaussian suite. Then, a great variety of 
-visualization tools are able to read the *.cube file to visualize molecular 
-orbitals.
+visualization tools are able to read the *.cube file for visualization of 
+molecular orbitals.
 
 
 **3. Perform the WRFT analysis**
 
-We have determined that the LMOs for resonance subsystem of benzene are #19, 20 
-and 21. We also see that the involved atoms are the carbon atoms, whose indices 
-are 1, 2, 3, 4, 5 and 6 as indicated in Ph.gjf.
+We have determined that the LMOs for the resonance subsystem of benzene are #19,
+ 20 and 21. We also see that the involved atoms are the carbon atoms, whose 
+indices are 1, 2, 3, 4, 5 and 6 as indicated in "Ph.gjf".
 
 Accordingly, we prepare an input file, named "benzene_wfrt.in" as:
 ```
@@ -234,10 +234,10 @@ order of the projection of the Lewis structures onto the actual wave function.
     Lewis = 1-2/3-4/5-6  1:/2-3/5: 2:/4:/6:
     ```
     In this example, we have defined three Lewis structures. The first one is a 
-Kekulé structure, where `-` denotes the bond connect two atoms. In the second 
-Lewis structure, each of atoms 1 and 5 has a lone pair and atoms 2 and 3 forms a
- bond. The last Lewis structure contains three lone pairs located, respectively,
- at atoms 2, 4 and 6.
+Kekulé structure, where `-` denotes the bond connecting two atoms. In the second
+ Lewis structure, each of atoms 1 and 5 has a lone pair and atoms 2 and 3 forms 
+a bond. The last Lewis structure contains three lone pairs located, 
+respectively, at atoms 2, 4 and 6.
 
 
 ### WFRT analysis using all Kekulé structures
@@ -266,7 +266,7 @@ Atoms = 1 2 3 4 5 6
 Huckel = TRUE
 ```
 
-Furthermore, the use of `Huckel` can also be accompanied with other keywords, 
+Furthermore, the use of `Huckel` can also be accompanied by other keywords, 
 including `MaxNLP`, `ProjCut`, `Kekule` and `Lewis`, for the respective 
 purposes.
 
@@ -344,7 +344,7 @@ atoms = 1 2 3 4 5 6
 Lewis = 1
 writeRAOs = TRUE
 ```
-This is simple projection job that only calculate the projection of one Lewis
+This is a simple projection job that only calculate the projection of one Lewis
 structure (so it is very fast). By running this job, a file named "Ph_RAO.fchk" 
 is generated. By opening this fchk with softwares like JMol, one can visulized  
 the RAOs atom by atom to check if all RAOs are in phase.
@@ -373,11 +373,11 @@ the RAOs atom by atom to check if all RAOs are in phase.
 
 ## Limitations
 
-The current WFRT scheme some limitations in its applicability. In the near 
-future, we will be endeavoring to extend and generalize the approach for a 
+The current WFRT scheme have some limitations in its applicability. In the near
+ future, we will be endeavoring to extend and generalize the approach for a 
 wider range of applications.
 
-The following aspects will be considered in our future work:
+The following aspects are to be considered in our future work:
 
 - Open-shell systems
 
@@ -386,7 +386,7 @@ The following aspects will be considered in our future work:
 
 - Using the varying RAOs that depend on each specific Lewis structures and 
   allowing to use multiple RAOs for one atom, which will make the method able to
-  deals with systems like SO_4^{2-}, PF5, B2H6, etc
+  deal with systems like SO_4^{2-}, PF5, B2H6, etc.
 
 - Going beyond DFT/HF wave functions to enable the expansion of multireference
   wave functions
