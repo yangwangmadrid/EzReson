@@ -12,8 +12,8 @@ If you are using EzReson in your research papers or presentations, it is
 obligatory to cite the following works:
 
 1. Yang Wang. Toward a Reliable and Widely Applicable Resonance Theory from DFT 
-Calculations: Should it be Density Based or Wave Function Based? J. Am. Chem.
-Soc. Submitted.
+Calculations: Should it be Density Based or Wave Function Based? Chem. Sci. 
+Submitted.
 
 2. Yang Wang. An Efficient Wave-Function-Based Resonance Theory in the DFT 
 Framework. J. Chem. Theory Comput. In preparation.
