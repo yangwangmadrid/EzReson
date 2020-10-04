@@ -240,17 +240,6 @@ a bond. The last Lewis structure contains three lone pairs located,
 respectively, at atoms 2, 4 and 6.
 
 
-### WFRT analysis using all Kekulé structures
-
-To perform a WFRT analysis using only all possible Kekulé structures, set the 
-`Kekule` parameter to be TRUE:
-```
-Kekule = TRUE
-```
-
-**NOTE**: The two options `Kekule` and `Lewis` are repulsive to each other, 
-i.e., they cannot be present at the same time in the input file.
-
 
 ### WFRT analysis in the framework of simple Hueckel molecular orbital (HMO) theory
 
@@ -267,7 +256,7 @@ Huckel = TRUE
 ```
 
 Furthermore, the use of `Huckel` can also be accompanied by other keywords, 
-including `MaxNLP`, `ProjCut`, `Kekule` and `Lewis`, for the respective 
+including `MaxNLP`, `ProjCut` and `Lewis`, for the respective 
 purposes.
 
 
@@ -281,7 +270,7 @@ LMOs = 19 20 21
 atoms = 1 2 3 4 5 6
 ```
 
-The keywords such as `Lewis` and `Kekule` are also valid for DMRT analysis.
+The keywords such as `Lewis` are also valid for DMRT analysis.
 
 **NOTES**: 
   1. We strongly discourage the application of the DMRT, for this theory has 
@@ -318,7 +307,7 @@ Atoms = 1 2 3 4 5 6
 By running this job, wave function projections, density matrix projections and
 the energies of Lewis structures will be obtained in the same output.
 
-Other options, like `Lewis`, `Kekule`, `Huckel` can be used for a `PROJ` job.
+Other options, like `Lewis`, `Huckel` can be used for a `PROJ` job.
 
 
 ## Cautions

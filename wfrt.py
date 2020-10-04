@@ -5,12 +5,6 @@
 #
 #  Updates:
 #
-#    Sep 1, 2020:
-#    - Added function wfrt_hmo_kekule() to perform WFRT analysis in the HMO
-#      framework using only Kekule structures
-#    - Added in proj_DM_WF(), proj_DM_WF_kekule() the argument raoFlipAtoms 
-#      to allow one to manually assign the RAO phases
-#
 #    Aug 28, 2020:
 #    - Fixed a bug in proj_DM_WF() that when ixLS==-1, only 1 Lewis structure
 #      is considered
@@ -32,17 +26,9 @@
 #    - Added implementation using wave functions obtained from simple Hueckel  
 #      Molecular Orbital theory
 #
-#    Apr 25, 2020:
-#      - In function proj_DM_WF(), allow for straightforward specification
-#        of Lewis structures parsed from strings, or for a given set of Kekule 
-#        structures read from an external *.kek file geneated by enumKekule()
-#
 #    Apr 23, 2020:
 #      - Allow for straightforward specification of Lewis structures parsed
 #        from strings, in function wfrt_spec()
-#
-#      - WFRT analysis for a given set of Kekule structures read from an
-#        external *.kek file, which is geneated by enumKekule() function
 #
 #    From Apr 18, 2020:
 #      - Calculations of energies of resonance strcutures and their interaction
@@ -52,7 +38,6 @@
 from readNBOMat import *
 from resonance import *
 from weights import *
-from kekule import *
 
 
 # Lewis unit orbitals (LUOs) in AO basis (NAOs, Lowdin's AOs etc.):
@@ -1414,64 +1399,6 @@ def proj_DM_WF( naoInfo, FchkInfo, CAONAO, CLMO, ELMO, atIx1, moIx1, \
 # enddef proj_DM_WF()
 
 
-# WFRT analysis only with all possible Kekule structures:
-#   naoInfo:       Information from NAO's output
-#   FchkInfo:      Informatoin of fchk output
-#   CAONAO:        AO-->NAO transformation matrix
-#   CLMO:          LMO coefficients in NAO basis
-#   ELMO:          LMO energies
-#   atIx1:         Indices of atoms in the resonance subsystem, start from 1
-#   moIx1:         Indices of LMOs in the resonance subsystem, start from 1
-#   kekFileName:   Name of *.kek file where Kekule structures are stored
-#   raoType:       'uni'--> universal RAOs;  'var'--> varying RAOs
-def wfrt_kekule( naoInfo, FchkInfo, CAONAO, CLMO, ELMO, atIx1, moIx1, \
-                 kekFileName, raoType='uni' ):
-    # Read Kekule structures from external file:
-    print( 'Reading Kekule structures from file %s ...' % kekFileName )
-    LP, BD = readKekule( kekFileName )
-
-    # Perform WFRT analysis:
-    wfrt_spec( naoInfo, FchkInfo, CAONAO, CLMO, ELMO, atIx1, moIx1, (LP,BD), \
-               raoType )
-    return
-# enddef wfrt_kekule()
-
-
-# Calculate DMRT and WFRT projections only with all possible Kekule structures:
-#   naoInfo:     Information from NAO's output
-#   FchkInfo:    Informatoin of fchk output
-#   CAONAO:      AO-->NAO transformation matrix
-#   CLMO:        LMO coefficients in NAO basis
-#   ELMO:        LMO energies
-#   atIx1:       Indices of atoms in the resonance subsystem, start from 1
-#   moIx1:       Indices of LMOs in the resonance subsystem, start from 1
-#   kekFileName: Name of *.kek file where Kekule structures are stored
-#   ndiv:        Divide file in n parts lest a huge file runs out of memory
-def proj_DM_WF_kekule( naoInfo, FchkInfo, CAONAO, CLMO, ELMO, atIx1, moIx1, \
-                 kekFileName, ndiv=1, raoType='uni', inpBaseName='', \
-                 raoFlipAtoms=None ):
-    if ndiv > 1:
-        print( 'Dividing file %s into %i parts ...' % ( kekFileName, ndiv ) )
-    elif ndiv <=0 :
-        raise ValueError( 'Invalid value for argument ndiv (%i) in '
-                'proj_DM_WF_kekule' % ndiv )
-
-    for i in range( 1, ndiv+1 ):
-        if ndiv > 1:
-            print( '########## PART %3i OUT OF %3i ##########' % ( i, ndiv ) )
-
-        # Read Kekule structures from external file:
-        print( 'Reading Kekule structures from file %s ...' % kekFileName )
-        LP, BD = readKekule( kekFileName, ( ndiv, i ) )
-
-        # Calculate DMRT and WFRT projections:
-        proj_DM_WF( naoInfo, FchkInfo, CAONAO, CLMO, ELMO, atIx1, moIx1, \
-                    ( LP, BD ), raoType, inpBaseName, raoFlipAtoms )
-    return
-# enddef wfrt_kekule()
-
-
-
 # WFRT analysis in the simple Hueckel Molecular Orbital (HMO) framework:
 #   hmoSol:      Solution of simple HMO theory
 #   atIx1:         Indices of atoms in the resonance subsystem, start from 1
@@ -1533,21 +1460,6 @@ def wfrt_hmo_spec( hmoSol, ixLS ):
 
 
 
-# WFRT analysis in the simple Hueckel Molecular Orbital (HMO) framework using
-# only all possible Kekule structures:
-#   hmoSol:      Solution of simple HMO theory
-#   kekFileName:   Name of *.kek file where Kekule structures are stored
-def wfrt_hmo_kekule( hmoSol, kekFileName ):
-    # Read Kekule structures from external file:
-    print( 'Reading Kekule structures from file %s ...' % kekFileName )
-    LP, BD = readKekule( kekFileName )
-
-    # Perform WFRT analysis:
-    wfrt_hmo_spec( hmoSol, (LP,BD) )
-    return
-# enddef wfrt_hmo_kekule()
-
-
 # Calculate the projections of Lewis structures using both DMRT and WFRT, in
 # the simple Hueckel Molecular Orbital (HMO) framework:
 #   hmoSol:      Solution of simple HMO theory
@@ -1585,29 +1497,3 @@ def proj_DM_WF_hmo( hmoSol, ixLS=-1 ):
     return
 # enddef proj_DM_WF_hmo()
 
-
-
-# Calculate DMRT and WFRT projections only with all possible Kekule structures
-# in the simple Hueckel Molecular Orbital (HMO) framework:
-#   hmoSol:      Solution of simple HMO theory
-#   kekFileName: Name of *.kek file where Kekule structures are stored
-#   ndiv:        Divide file in n parts lest a huge file runs out of memory
-def proj_DM_WF_kekule_hmo( hmoSol, kekFileName, ndiv=1 ):
-    NAt = hmoSol.NAt
-    NP = hmoSol.NE // 2  # Number of electron pairs (for closed-shell systems)
-    aoIx = []
-    for i in range( 1, NAt+1 ):
-        aoIx.append( np.array([ i ]) )
-
-    CAONAO = np.eye( NAt )
-    CLMO = hmoSol.C[ :, 0:NP ]
-    ELMO = hmoSol.E[ 0:NP ]
-    atIx1 = range( 1, NAt+1 )
-    moIx1 = range( 1, NP+1 )
-
-    print( '--In the framework of simple Hueckel Molecular Orbital theory--' )
-
-    proj_DM_WF_kekule( aoIx, hmoSol, CAONAO, CLMO, ELMO, atIx1, moIx1, \
-                       kekFileName, ndiv )
-    return
-# enddef proj_DM_WF_kekule_hmo()

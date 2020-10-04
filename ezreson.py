@@ -23,7 +23,7 @@ from wfrt import *
 # Parameters in the input file:
 class param:
     def __init__( self, basename, job, lmos, atoms, maxnlp, projcut, \
-            writeraos, flipraos, lewis, kekule, huckel, precdmrt, degcridmrt ):
+            writeraos, flipraos, lewis, huckel, precdmrt, degcridmrt ):
         self.basename = basename
         self.job = job
         self.lmos = lmos
@@ -33,7 +33,6 @@ class param:
         self.writeraos = writeraos
         self.flipraos = flipraos
         self.lewis = lewis
-        self.kekule = kekule
         self.huckel = huckel
         self.precdmrt = precdmrt
         self.degcridmrt = degcridmrt
@@ -89,10 +88,6 @@ def readControlFile( inputFileName ):
             '^\s*Lewis\s*=\s*.*', re.IGNORECASE
             )
 
-    pat_kekule = re.compile( 
-            '^\s*Kekule\s*=\s*.*', re.IGNORECASE
-            )
-
     pat_huckel = re.compile( 
             '^\s*Huckel\s*=\s*.*', re.IGNORECASE
             )
@@ -115,7 +110,6 @@ def readControlFile( inputFileName ):
     writeraos = False
     flipraos = None
     lewis = []
-    kekule = False
     huckel = False
     precdmrt = 0.99
     degcridmrt = 1E-3
@@ -226,20 +220,6 @@ def readControlFile( inputFileName ):
                 # print( 'lewis = ', lewis )
                 continue
 
-            # Whether using Kekule structures only:
-            if pat_kekule.match( line ):
-                s = fields.split()[0]
-                if s.upper() == 'TRUE' or s == '1':
-                    kekule = True
-                elif s.upper() == 'FALSE' or s == '0':
-                    kekule = False
-                else:
-                    print( 'ERROR: Invalid value of parameter Kekule:', s )
-                    print( '  Valid options are TRUE, FALSE, 1, 0' )
-                    print( 'Abort' )
-                    exit(1)
-                continue
-
             # Whether in the framework of Huckel molecular orbitals theory:
             if pat_huckel.match( line ):
                 s = fields.split()[0]
@@ -285,16 +265,8 @@ def readControlFile( inputFileName ):
         print( 'Abort' )
         exit(1)
 
-    # -- Replusive parameters:
-    if len( lewis ) > 0 and kekule:
-        print( 'ERROR: ', end='' )
-        print( 'Lewis structures cannot be specified while Kekule option is ' \
-                'turned on' )
-        print( 'Abort' )
-        exit(1)
-
     return param( basename, job, lmos, atoms, maxnlp, projcut, writeraos, \
-            flipraos, lewis, kekule, huckel, precdmrt, degcridmrt )
+            flipraos, lewis, huckel, precdmrt, degcridmrt )
 #==============================================================================
 # enddef readControlFile()
 
@@ -354,7 +326,7 @@ def runJob_LMO( basename ):
 # Perform a WFRT job
 #
 def runJob_WFRT( basename, lmos, atoms, maxnlp, projcut, writeraos, \
-        flipraos, lewis, kekule, huckel ):
+        flipraos, lewis, huckel ):
     print( 'Performing Wave Function based Resonance Theory (WFRT) '
            'calculations ...' )
     if not huckel:
@@ -378,45 +350,22 @@ def runJob_WFRT( basename, lmos, atoms, maxnlp, projcut, writeraos, \
         print( 'RAOs are to be written in the file %s_RAO.fchk' % rao_tag )
     else:
         rao_tag = ''
-    if kekule:
-        print( 'Using only Kekule structures to expand the wave function' )
-
-    if kekule:
-        # Generate all possible Kekule structures:
-        kekFileName = basename + '.kek'
-        if os.path.exists( kekFileName ):
-            print( 'Kekule structures have been previously enumerated in '
-                    'file', kekFileName )
-        else:
-            elem = []
-            for Z in FchkInfo.Z:
-                elem.append( str(Z) )
-            with open( kekFileName, 'w' ) as writer:
-                print( 'Enumerating Kekule structures for %s ...' % basename )
-                enumKekule( writer, elem, FchkInfo.xyz )
-                print( 'File', kekFileName, 'written' )
 
     print()
 
     # wfrt_hmo:
     if huckel:
         print( 'In the framework of simple Huckel molecular orbitals theory' )
-        if len( lewis ) == 0 and not kekule:  # Not supported yet
+        if len( lewis ) == 0:  # Not supported yet
             wfrt_hmo( hmoSol, atoms, maxnlp, projcut )
-        elif kekule:
-            wfrt_hmo_kekule( hmoSol, kekFileName )
         else:
             wfrt_hmo_spec( hmoSol, lewis )
         exit(0)
 
     # wfrt:
-    if len( lewis ) == 0 and not kekule:
+    if len( lewis ) == 0:
         wfrt( naoInfo, FchkInfo, CAONAO, CNAOLMO, ELMO, atoms, lmos, maxnlp, \
             projcut, 'uni', rao_tag, flipraos )
-    # wfrt_kekule:
-    elif kekule:
-        wfrt_kekule( naoInfo, FchkInfo, CAONAO, CNAOLMO, ELMO, atoms, lmos, \
-                 kekFileName, 'uni' )
     # wfrt_spec:
     else:
         wfrt_spec( naoInfo, FchkInfo, CAONAO, CNAOLMO, ELMO, atoms, lmos, \
@@ -429,7 +378,7 @@ def runJob_WFRT( basename, lmos, atoms, maxnlp, projcut, writeraos, \
 #==============================================================================
 # Perform a DMRT job
 def runJob_DMRT( basename, lmos, atoms, maxnlp, precdmrt, degcridmrt, \
-        lewis, kekule, huckel ):
+        lewis, huckel ):
     print( 'Performing Density Matrix based Resonance Theory (DMRT) '
            'calculations ...' )
     if not huckel:
@@ -449,15 +398,12 @@ def runJob_DMRT( basename, lmos, atoms, maxnlp, precdmrt, degcridmrt, \
             (precdmrt*100) )
     print( 'Using a criterium of %.6E to determine degenerate Lewis '
             'structures' % degcridmrt )
-    if kekule:
-        print( 'Using only Kekule structures to expand the wave function' )
 
     print()
 
     # dmrt_hmo:
     if huckel:
         print( 'In the framework of simple Huckel molecular orbitals theory' )
-        # if len( lewis ) == 0 and not kekule:  # Not supported yet
         if len( lewis ) == 0:
             dmrt_hmo( hmoSol, maxnlp, 1., [], [], precdmrt, degcridmrt )
         else:
@@ -465,27 +411,9 @@ def runJob_DMRT( basename, lmos, atoms, maxnlp, precdmrt, degcridmrt, \
         exit(0)
 
     # dmrt:
-    if len( lewis ) == 0 and not kekule:
+    if len( lewis ) == 0:
         dmrt( naoInfo, FchkInfo, CAONAO, CNAOLMO, ELMO, atoms, lmos, maxnlp, \
             1., [], [], precdmrt, degcridmrt )
-    # dmrt_kekule:
-    elif kekule:
-        # Generate all possible Kekule structures:
-        kekFileName = basename + '.kek'
-        if os.path.exists( kekFileName ):
-            print( 'Kekule structures have been previously enumerated in '
-                    'file', kekFileName )
-        else:
-            elem = []
-            for Z in FchkInfo.Z:
-                elem.append( str(Z) )
-            with open( kekFileName, 'w' ) as writer:
-                print( 'Enumerating Kekule structures for %s ...' % basename )
-                enumKekule( writer, elem, FchkInfo.xyz )
-                print( 'File', kekFileName, 'written' )
-
-        dmrt_kekule( naoInfo, FchkInfo, CAONAO, CNAOLMO, ELMO, atoms, lmos, \
-                 kekFileName, 'uni' )
     # dmrt_spec:
     else:
         dmrt_spec( naoInfo, FchkInfo, CAONAO, CNAOLMO, ELMO, atoms, lmos, \
@@ -499,7 +427,7 @@ def runJob_DMRT( basename, lmos, atoms, maxnlp, precdmrt, degcridmrt, \
 # Perform a PROJ job
 #
 def runJob_PROJ( basename, lmos, atoms, maxnlp, writeraos, flipraos, \
-        lewis, kekule, huckel ):
+        lewis, huckel ):
     print( 'Performing wave function and density matrix projection '
            'calculations ...' )
     if not huckel:
@@ -511,7 +439,8 @@ def runJob_PROJ( basename, lmos, atoms, maxnlp, writeraos, flipraos, \
         CAONAO = readNBOMat( basename + '.33', naoInfo.NBas, naoInfo.NNAO  )
         CNAOLMO, ELMO = genLMOs( FchkInfo, naoInfo, CAONAO, basename )
     else:
-        hmoSol = hmo( basename + '.xyz' )
+        #hmoSol = hmo( basename + '.xyz' )
+        hmoSol = hmo( basename + '.gjf' )
 
     # Calculating WF and DM projections:
     if writeraos:
@@ -519,44 +448,22 @@ def runJob_PROJ( basename, lmos, atoms, maxnlp, writeraos, flipraos, \
         print( 'RAOs are to be written in the file %s_RAO.fchk' % rao_tag )
     else:
         rao_tag = ''
-    if kekule:
-        print( 'Using only Kekule structures to expand the wave function' )
-        # Generate all possible Kekule structures:
-        kekFileName = basename + '.kek'
-        if os.path.exists( kekFileName ):
-            print( 'Kekule structures have been previously enumerated in '
-                    'file', kekFileName )
-        else:
-            elem = []
-            for Z in FchkInfo.Z:
-                elem.append( str(Z) )
-            with open( kekFileName, 'w' ) as writer:
-                print( 'Enumerating Kekule structures for %s ...' % basename )
-                enumKekule( writer, elem, FchkInfo.xyz )
-                print( 'File', kekFileName, 'written' )
-
 
     print()
 
     # proj_DM_WF_hmo:
     if huckel:
         print( 'In the framework of simple Huckel molecular orbitals theory' )
-        if len( lewis ) == 0 and not kekule:
+        if len( lewis ) == 0:
             if len( lewis ) == 0:
                 lewis = -1
             proj_DM_WF_hmo( hmoSol, lewis )
-        elif kekule:
-            proj_DM_WF_kekule_hmo( hmoSol, kekFileName )
         exit(0)
 
     # proj_DM_WF:
-    if len( lewis ) == 0 and not kekule:
+    if len( lewis ) == 0:
         proj_DM_WF( naoInfo, FchkInfo, CAONAO, CNAOLMO, ELMO, atoms, lmos, \
                 -1, 'uni', rao_tag, flipraos )
-    # proj_DM_WF_kekule:
-    elif kekule:
-        proj_DM_WF_kekule( naoInfo, FchkInfo, CAONAO, CNAOLMO, ELMO, atoms, \
-                lmos, kekFileName, 1, 'uni', rao_tag, flipraos )
     # proj_DM_WF_spec:
     else:
         proj_DM_WF( naoInfo, FchkInfo, CAONAO, CNAOLMO, ELMO, atoms, lmos, \
@@ -599,19 +506,19 @@ if p.job == 'LMO':
 #-------- WFRT job --------
 elif p.job == 'WFRT':
     runJob_WFRT( p.basename, p.lmos, p.atoms, p.maxnlp, p.projcut, \
-            p.writeraos, p.flipraos, p.lewis, p.kekule, p.huckel )
+            p.writeraos, p.flipraos, p.lewis, p.huckel )
     exit(0)
 
 #-------- DMRT job --------
 elif p.job == 'DMRT':
     runJob_DMRT( p.basename, p.lmos, p.atoms, p.maxnlp, p.precdmrt, \
-            p.degcridmrt, p.lewis, p.kekule, p.huckel )
+            p.degcridmrt, p.lewis, p.huckel )
     exit(0)
 
 #-------- PROJ job --------
 elif p.job == 'PROJ':
     runJob_PROJ( p.basename, p.lmos, p.atoms, p.maxnlp, \
-            p.writeraos, p.flipraos, p.lewis, p.kekule, p.huckel )
+            p.writeraos, p.flipraos, p.lewis, p.huckel )
     exit(0)
 
 #------ Invalid job type --------

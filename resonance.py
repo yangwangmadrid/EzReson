@@ -50,9 +50,6 @@
 #      - Allow for straightforward specification of Lewis structures parsed
 #        from strings, in function dmrt_spec()
 #
-#      - DMRT analysis for a given set of Kekule structures read from an
-#        external *.kek file, which is geneated by enumKekule() function
-#
 #    From Mar 27, 2020:
 #      - Added functions rao_uni_general() allowing RAOs to be represented by 
 #        multi-AO-basis functions for each Lewis strcuture
@@ -64,7 +61,6 @@ from transform import *
 from comb import *
 from util import *
 from writeFchkOrb import *
-from kekule import *
 
 
 # Gross atomic population and Wiberg bond orders, obtained from density matrix:
@@ -1591,29 +1587,6 @@ def dmrt_spec( naoInfo, FchkInfo, CAONAO, CLMO, ELMO, atIx1, moIx1, ixLS, \
 
     return
 # enddef dmrt_spec()
-
-
-# DMRT analysis only with all possible Kekule structures:
-#   naoInfo:       Information from NAO's output
-#   FchkInfo:      Informatoin of fchk output
-#   CAONAO:        AO-->NAO transformation matrix
-#   CLMO:          LMO coefficients in NAO basis
-#   ELMO:          LMO energies
-#   atIx1:         Indices of atoms in the resonance subsystem, start from 1
-#   moIx1:         Indices of LMOs in the resonance subsystem, start from 1
-#   kekFileName:   Name of *.kek file where Kekule structures are stored
-#   raoType:       'uni'--> universal RAOs;  'var'--> varying RAOs
-def dmrt_kekule( naoInfo, FchkInfo, CAONAO, CLMO, ELMO, atIx1, moIx1, \
-                 kekFileName, raoType='uni' ):
-    # Read Kekule structures from external file:
-    print( 'Reading Kekule structures from file %s ...' % kekFileName )
-    LP, BD = readKekule( kekFileName )
-
-    # Perform DMRT analysis:
-    dmrt_spec( naoInfo, FchkInfo, CAONAO, CLMO, ELMO, atIx1, moIx1, (LP,BD), \
-               raoType )
-    return
-# enddef dmrt_kekule()
 
 
 
