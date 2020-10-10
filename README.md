@@ -11,12 +11,11 @@ structures.
 If you are using EzReson in your research papers or presentations, it is 
 obligatory to cite the following works:
 
-1. Yang Wang. Toward a reliable and widely applicable resonance theory from DFT 
-calculations: Should it be density based or wave function based? Chem. Sci. 
-Submitted.
+1. Yang Wang. A Reliable and Efficient Resonance Theory Based on Analysis of 
+DFT Wave Functions. J. Chem. Theory Comput. 2020, Submitted.
 
-2. Yang Wang. An Efficient Wave-Function-Based Resonance Theory in the DFT 
-Framework. J. Chem. Theory Comput. In preparation.
+2. Yang Wang. Superposition of Waves or Densities: Which is the Nature of 
+Chemical Resonance? J. Comput. Chem. 2020, Submitted.
 
 
 ## Copyright and license
