@@ -15,7 +15,7 @@ obligatory to cite the following works:
 DFT Wave Functions. *Phys. Chem. Chem. Phys.* 2020, Submitted.
 
 2. Yang Wang. Superposition of Waves or Densities: Which is the Nature of 
-Chemical Resonance? *J. Comput. Chem.* 2020, In press.
+Chemical Resonance? *J. Comput. Chem.* 2020, In press (DOI: 10.1002/jcc.26463).
 
 
 ## Copyright and license
