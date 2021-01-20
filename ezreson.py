@@ -6,7 +6,7 @@
 #  Written by Yang Wang (yangwang@yzu.edu.cn)
 #
 
-VERSION = '1.0 (Aug 2020)'
+VERSION = '0.1 (Aug 2020)'
 
 import re
 import sys
