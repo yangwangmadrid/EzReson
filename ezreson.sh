@@ -1,5 +1,5 @@
 #!/bin/bash
 
-export EZREON_DIR="${HOME}/work/cases/NRT/newNRT/release/v1.1"
+export EZREON_DIR="The absoulte path where EzReson's source files are located"
 
 python ${EZREON_DIR}/ezreson.py $*
