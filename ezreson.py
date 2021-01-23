@@ -124,7 +124,7 @@ def readControlFile( inputFileName ):
                 if len( fields.strip() ) == 0:
                     print( 'ERROR: Value missing at line %i:' % iline )
                     print( '    -->%s' % line, end='' )
-                    print( 'Abort' )
+                    print( 'Aborted' )
                     exit(1)
 
             # Basename of DFT output files:
@@ -178,7 +178,7 @@ def readControlFile( inputFileName ):
                 else:
                     print( 'ERROR: Invalid value of parameter WriteRAOs:', s )
                     print( '  Valid options are TRUE, FALSE, 1, 0' )
-                    print( 'Abort' )
+                    print( 'Aborted' )
                     exit(1)
                 continue
 
@@ -196,7 +196,7 @@ def readControlFile( inputFileName ):
                         print( 'ERROR: Invalid value of parameter FlipRAOs:', \
                                 s )
                         print( '  Valid values are -1, 0 and positive numbers' )
-                        print( 'Abort' )
+                        print( 'Aborted' )
                         exit(1)
                 else:
                     for si in s:
@@ -230,7 +230,7 @@ def readControlFile( inputFileName ):
                 else:
                     print( 'ERROR: Invalid value of parameter Huckel:', s )
                     print( '  Valid options are TRUE, FALSE, 1, 0' )
-                    print( 'Abort' )
+                    print( 'Aborted' )
                     exit(1)
                 continue
 
@@ -254,7 +254,7 @@ def readControlFile( inputFileName ):
         print( 'ERROR: ', end='' )
         print( 'Missing \"File = ...\" to specify the basename of the DFT '
                'output files' )
-        print( 'Abort' )
+        print( 'Aborted' )
         exit(1)
 
     # -- No job specified:
@@ -262,7 +262,7 @@ def readControlFile( inputFileName ):
         print( 'ERROR: ', end='' )
         print( 'Missing \"Job = ...\" to specify the job type' )
         print( '  Valid options are LMO, WFRT, DMRT, PROJ' )
-        print( 'Abort' )
+        print( 'Aborted' )
         exit(1)
 
     return param( basename, job, lmos, atoms, maxnlp, projcut, writeraos, \
@@ -314,7 +314,7 @@ def runJob_LMO( basename ):
     FchkInfo = readFchk( basename + '.fchk' )
     # Check if AOs has no linear dependence (so that C is invertible):
     if FchkInfo.NBasIndp < FchkInfo.NBas:
-        raise ValueError( 'Linear dependence found in the AOs\nAbort!' )
+        raise ValueError( 'Linear dependence found in the AOs\nAborted!' )
     naoInfo = readNAOInfo( basename +'.out' )
     CAONAO = readNBOMat( basename + '.33', naoInfo.NBas, naoInfo.NNAO  )
     CNAOLMO, ELMO = genLMOs( FchkInfo, naoInfo, CAONAO, basename )
@@ -333,7 +333,7 @@ def runJob_WFRT( basename, lmos, atoms, maxnlp, projcut, writeraos, \
         FchkInfo = readFchk( basename + '.fchk' )
         # Check if AOs has no linear dependence (so that C is invertible):
         if FchkInfo.NBasIndp < FchkInfo.NBas:
-            raise ValueError( 'Linear dependence found in the AOs\nAbort!' )
+            raise ValueError( 'Linear dependence found in the AOs\nAborted!' )
         naoInfo = readNAOInfo( basename +'.out' )
         CAONAO = readNBOMat( basename + '.33', naoInfo.NBas, naoInfo.NNAO  )
         CNAOLMO, ELMO = genLMOs( FchkInfo, naoInfo, CAONAO, basename )
@@ -385,7 +385,7 @@ def runJob_DMRT( basename, lmos, atoms, maxnlp, precdmrt, degcridmrt, \
         FchkInfo = readFchk( basename + '.fchk' )
         # Check if AOs has no linear dependence (so that C is invertible):
         if FchkInfo.NBasIndp < FchkInfo.NBas:
-            raise ValueError( 'Linear dependence found in the AOs\nAbort!' )
+            raise ValueError( 'Linear dependence found in the AOs\nAborted!' )
         naoInfo = readNAOInfo( basename +'.out' )
         CAONAO = readNBOMat( basename + '.33', naoInfo.NBas, naoInfo.NNAO  )
         CNAOLMO, ELMO = genLMOs( FchkInfo, naoInfo, CAONAO, basename )
@@ -434,7 +434,7 @@ def runJob_PROJ( basename, lmos, atoms, maxnlp, writeraos, flipraos, \
         FchkInfo = readFchk( basename + '.fchk' )
         # Check if AOs has no linear dependence (so that C is invertible):
         if FchkInfo.NBasIndp < FchkInfo.NBas:
-            raise ValueError( 'Linear dependence found in the AOs\nAbort!' )
+            raise ValueError( 'Linear dependence found in the AOs\nAborted!' )
         naoInfo = readNAOInfo( basename +'.out' )
         CAONAO = readNBOMat( basename + '.33', naoInfo.NBas, naoInfo.NNAO  )
         CNAOLMO, ELMO = genLMOs( FchkInfo, naoInfo, CAONAO, basename )
@@ -494,7 +494,7 @@ inputFile = sys.argv[1] # Get the input file name from command-line
 # print( inputFile )
 # Check if the input file exists:
 if not os.path.isfile( inputFile ):
-    print( 'Control file', inputFile, 'not found\nAbort' )
+    print( 'Control file', inputFile, 'not found\nAborted' )
     exit(1)
 p = readControlFile( inputFile )
 

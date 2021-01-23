@@ -606,7 +606,6 @@ def wfrt( naoInfo, FchkInfo, CAONAO, CLMO, ELMO, atIx1, moIx1, \
     print( '-'*105 )
     print( '%5s %10s %11s' % ( 'No.', 'Projection', 'Coefficient' ), end='' )
     print( ' %7s' % 'RE', end='' )
-    print( ' %6s' % 'REeff', end='' )
     print( ' %7s' % 'Mulli.', end='' )
     print( ' %7s' % 'Bickel.', end='' )
     print( ' %7s' % 'Ros-Sc.', end='' )
@@ -622,10 +621,8 @@ def wfrt( naoInfo, FchkInfo, CAONAO, CLMO, ELMO, atIx1, moIx1, \
         print( '%5i %10.6f %11.7f' % ( i+1, P[i], C[i] ), end='' )
         if ifHMO:
             print( ' %7.3f' % ( Erel[i] ), end='' )
-            print( ' %7.3f' % ( REeff[i] ), end='' )
         else:
             print( ' %7.2f' % ( au2kcal( Erel[i] ) ), end='' )
-            print( ' %7.2f' % ( au2kcal( REeff[i] ) ), end='' )
         print( ' %6.2f%%' % ( W_Mull[i]*100 ), end='' )
         print( ' %6.2f%%' % ( W_Bick[i]*100 ), end='' )
         print( ' %6.2f%%' % ( W_RS[i]*100 ), end='' )
@@ -1016,7 +1013,6 @@ def wfrt_spec( naoInfo, FchkInfo, CAONAO, CLMO, ELMO, atIx1, moIx1, ixLS, \
     print( '-'*105 )
     print( '%5s %10s %11s' % ( 'No.', 'Projection', 'Coefficient' ), end='' )
     print( ' %7s' % 'Erel', end='' )
-    print( ' %7s' % 'REeff', end='' )
     if rank_defi == 0:
         print( ' %7s' % 'Mulli.', end='' )
         print( ' %7s' % 'Bickel.', end='' )
@@ -1033,10 +1029,8 @@ def wfrt_spec( naoInfo, FchkInfo, CAONAO, CLMO, ELMO, atIx1, moIx1, ixLS, \
         print( '%5i %10.6f %11.7f' % ( i+1, P[i], C[i] ), end='' )
         if ifHMO:
             print( ' %7.3f' % ( Erel[i] ), end='' )
-            print( ' %7.3f' % ( REeff[i] ), end='' )
         else:
             print( ' %7.2f' % ( au2kcal( Erel[i] ) ), end='' )
-            print( ' %7.2f' % ( au2kcal( REeff[i] ) ), end='' )
         if rank_defi == 0:
             print( ' %6.2f%%' % ( W_Mull[i]*100 ), end='' )
             print( ' %6.2f%%' % ( W_Bick[i]*100 ), end='' )
