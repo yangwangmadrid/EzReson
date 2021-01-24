@@ -1,0 +1,6 @@
+#!/bin/bash
+
+#export EZREON_DIR="The absoulte path where EzReson's source files are located"
+export EZREON_DIR=/Users/wang/work/cases/NRT/newNRT/release/v0.1
+
+python ${EZREON_DIR}/ezreson.py $*
