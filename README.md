@@ -176,7 +176,7 @@ Solving linear equation for WFRT coefficients ...
 Using totally 175 Lewis structures to expand the actual wave function
 Normalizing the wave function by a factor of 0.9951914286 ...
 ---------------------------------------------------------------------------------------------------------
-  No. Projection Coefficient      RE  REeff  Mulli. Bickel. Ros-Sc.  Lowdin    PWSO  Lewis structure
+  No. Projection Coefficient      RE  Mulli. Bickel. Ros-Sc.  Lowdin    PWSO  Lewis structure
 ---------------------------------------------------------------------------------------------------------
     1   0.559795   0.3333335  175.96  18.75%  22.85%   9.60%  14.59%  19.80%  1-2 3-4 5-6
     2   0.559795   0.3333335  175.96  18.75%  22.85%   9.60%  14.59%  19.80%  2-3 4-5 1-6
