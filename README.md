@@ -12,7 +12,7 @@ If you are using EzReson in your research papers or presentations, it is
 obligatory to cite the following works:
 
 1. Yang Wang. A Reliable and Efficient Resonance Theory Based on Analysis of 
-DFT Wave Functions. *Phys. Chem. Chem. Phys.* 2021, In press (DOI: 10.1039/D0CP06207C).
+DFT Wave Functions. *Phys. Chem. Chem. Phys.* 2021, 23, 2331-2348.
 
 2. Yang Wang. Superposition of Waves or Densities: Which is the Nature of 
 Chemical Resonance? *J. Comput. Chem.* 2021, 42, 412-417.
