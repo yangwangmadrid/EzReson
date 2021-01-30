@@ -41,7 +41,7 @@ does not take on the responsibility of providing technical support.
 1. Place the folder of the EzReson package to any location as you like, which is
  referred to as the source directory hereafter. 
 2. Open with a text editor the script file "ezreson" in the source directory 
-and set the `EZREON_DIR` variable as the path of the source directory.
+and set the `EZRESON_DIR` variable as the path of the source directory.
 3. Add the source directory to the global environment variable `PATH` in e.g., 
 ".bash_profile" or ".bashrc" under your HOME directory.
 
