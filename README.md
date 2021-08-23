@@ -34,7 +34,7 @@ conjugate compounds, it is required to cite the following paper:
 
 3. Yang Wang. Extension and Quantification of Fries Rule and Its Connection to 
 Aromaticity: Large-Scale Validation by Wave-Function-Based Resonance Analysis.
-*J. Chem. Inf. Model. 2021, in press, (DOI: 10.1021/acs.jcim.1c00735)
+*J. Chem. Inf. Model.* 2021, in press, (DOI: 10.1021/acs.jcim.1c00735)
 
 
 ## Copyright and license
