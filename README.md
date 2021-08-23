@@ -6,22 +6,42 @@ DFT or Hartree-Fock calculation to the chemically more intepretable Lewis
 structures.
 
 
+## What's new in the latest 1.1.4 version?
+
+1. Enumeration and resonance analysis of Kekulé structures of pi conjugate 
+compounds
+
+2. A new job type, `ENUM`, for sole enumeration of all Kekulé structures
+
+3. Automatic selection of the pi-LMOs using only the keyword `PI`
+
+4. Specification of LMOs and atoms using MATLAB colon syntax
+
+
 ## How to cite
 
-If you are using EzReson in your research papers or presentations, it is 
+If you havee used EzReson in your research papers or presentations, it is 
 obligatory to cite the following works:
 
-1. Yang Wang. A Reliable and Efficient Resonance Theory Based on Analysis of 
+1. Yang Wang. A Reliable and Efficient Resonance Theory Based on Analysis of
 DFT Wave Functions. *Phys. Chem. Chem. Phys.* 2021, 23, 2331-2348.
-
-2. Yang Wang. Superposition of Waves or Densities: Which is the Nature of 
+ 
+2. Yang Wang. Superposition of Waves or Densities: Which is the Nature of
 Chemical Resonance? *J. Comput. Chem.* 2021, 42, 412-417.
+
+If you have used EzReson to generate or analyze Kekulé structures of pi
+conjugate compounds, it is required to cite the following paper:
+
+3. Yang Wang. Extension and Quantification of Fries Rule and Its Connection to 
+Aromaticity: Large-Scale Validation by Wave-Function-Based Resonance Analysis.
+*J. Chem. Inf. Model. 2021, in press, (DOI: 10.1021/acs.jcim.1c00735)
 
 
 ## Copyright and license
 The Author of the EzReson software is Yang Wang 
 (yangwang@yzu.edu.cn; orcid.org/0000-0003-2540-2199). The EzReson program is 
 released under GNU General Public License v3 (GPLv3).
+
 
 ## Disclaimer
 The EzReson software is provided as it is, with no warranties. The Author shall 
@@ -39,10 +59,10 @@ does not take on the responsibility of providing technical support.
 
 ### Installation
 1. Place the folder of the EzReson package to any location as you like, which is
- referred to as the source directory hereafter. 
-2. Open with a text editor the script file "ezreson" in the source directory 
+ referred to as the source directory hereafter.
+2. Open with a text editor the script file "ezreson" in the source directory
 and set the `EZRESON_DIR` variable as the path of the source directory.
-3. Add the source directory to the global environment variable `PATH` in e.g., 
+3. Add the source directory to the global environment variable `PATH` in e.g.,
 ".bash_profile" or ".bashrc" under your HOME directory.
 
 Then, you are ready to go.
@@ -51,20 +71,20 @@ Then, you are ready to go.
 ## How to use
 
 ### Gaussian calculations
-1. In the Gaussian input file (e.g., abc.gjf), add in the route section the 
-keywords `fchk=All Pop=NBO6Read`, and at the end of the file add 
+1. In the Gaussian input file (e.g., abc.gjf), add in the route section the
+keywords `fchk=All Pop=NBO6Read`, and at the end of the file add
 `$NBO NOBOND AONAO=W $END`. In this way, the checkpoint file "Test.FChk" and the
- NBO matrix file "abc.33" will be generated. Then, rename "Test.FChk" to 
-"abc.fchk". The Gaussian output file should have the extension name of ".out" 
+ NBO matrix file "abc.33" will be generated. Then, rename "Test.FChk" to
+"abc.fchk". The Gaussian output file should have the extension name of ".out"
 (If necessary, "abc.log" ought to be renamed as "abc.out").
-
-**NOTES**: 
-- It is strongly recommended to use the NBO program later than version 5.0. The 
+ 
+**NOTES**:
+- It is strongly recommended to use the NBO program later than version 5.0. The
 free version of NBO 3.1 implemented in Gaussian package would be problematic and
  give unreliable results.
-- Do not use `fchk=All` to generate the checkpoint file if there are two such 
-jobs running at the same working directory at the same time. Otherwise, the two 
-jobs will write the same "Test.FChk" file. Instead, add the `%chk=abc.chk` line 
+- Do not use `fchk=All` to generate the checkpoint file if there are two such
+jobs running at the same working directory at the same time. Otherwise, the two
+jobs will write the same "Test.FChk" file. Instead, add the `%chk=abc.chk` line
 to obtain the checkpoint file "abc.chk". Then, use Gaussian's formchk utility to
  convert "abc.chk" to "abc.fchk".
 
@@ -155,11 +175,27 @@ Then, use the following command to run the WFRT job:
  
 `ezreson benzene_wfrt.in > benzene_wfrt.out`
 
-**NOTE**: For the indices of atoms, *the order matters* in order to apply 
+**NOTE**: 
+i) For the indices of atoms, *the order matters* in order to apply 
 Rumer's rule for determination of linearly independent set of Lewis structures. 
 For monocyclic systems, the ordered atoms should form a circle. For other 
 systems, the choice is somewhat arbitrary, but it is recommended that the atoms 
 be disposed to form a circle as much as possible.
+
+ii) For versions 1.1.4+, the `LMOs` and `Atoms` can be defined in a more compact
+way by using the MATLAB colon syntax:
+```
+LMOs = 19:21
+Atoms = 1:6
+```
+
+iii) In this case of benzene (and pi-conjugate systems in general), the pi LMOs
+can be automatically chosen by EzReson with the `PI` keyword (case-insensitive):
+```
+LMOs = PI
+```
+Note that this is only valid for *all-carbon* conjugated systems, and not for
+heteroatomic systems yet. 
 
 
 **Fragment of the output**:
@@ -191,6 +227,7 @@ Normalizing the wave function by a factor of 0.9951914286 ...
 ---------------------------------------------------------------------------------------------------------
 Reproducibility =  99.519143%
 ```
+
 
 ### WFRT analysis using Lewis structures with maximum number of lone pairs
 
@@ -239,6 +276,25 @@ a bond. The last Lewis structure contains three lone pairs located,
 respectively, at atoms 2, 4 and 6.
 
 
+### WFRT analysis using all Kekulé structures
+
+To perform a WFRT analysis using only all possible Kekulé structures, set the 
+`Kekule` parameter to be TRUE:
+```
+Kekule = TRUE
+```
+
+**NOTE**: 
+i) The two options `Kekule` and `Lewis` are repulsive to each other, 
+i.e., they cannot be present at the same time in the input file.
+
+ii) Before performing the WFRT analysis, Kekulé structures are first enumerated
+and stored in a file with *.kek extension. You can also generate the Kekulé 
+structures without performing WFRT or PROJ job, by invoking the `ENUM` job type:
+```
+Job = ENUM
+```
+
 
 ### WFRT analysis in the framework of simple Hueckel molecular orbital (HMO) theory
 
@@ -254,8 +310,8 @@ Atoms = 1 2 3 4 5 6
 Huckel = TRUE
 ```
 
-Furthermore, the use of `Huckel` can also be accompanied by other keywords, 
-including `MaxNLP`, `ProjCut` and `Lewis`, for the respective 
+Furthermore, the use of `Huckel` can also be accompanied with other keywords, 
+including `MaxNLP`, `ProjCut`, `Kekule` and `Lewis`, for the respective 
 purposes.
 
 
@@ -269,7 +325,7 @@ LMOs = 19 20 21
 atoms = 1 2 3 4 5 6
 ```
 
-The keywords such as `Lewis` are also valid for DMRT analysis.
+The keywords such as `Lewis` and `Kekule` are also valid for DMRT analysis.
 
 **NOTES**: 
   1. We strongly discourage the application of the DMRT, for this theory has 
@@ -380,4 +436,3 @@ The following aspects are to be considered in our future work:
   wave functions
 
 - Excited states
-
