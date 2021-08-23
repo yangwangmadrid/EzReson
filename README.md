@@ -5,6 +5,12 @@ analysis of molecules. It translates the wave function obtained from a standard
 DFT or Hartree-Fock calculation to the chemically more intepretable Lewis 
 structures.
 
+**NOTE**:
+For a tutorial in *Chinese*, a series articles with examples are avaible at the 
+WeChat public account, "Quantum Chemistry", following the link:
+
+https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzU5NjMxNjkzMw==&action=getalbum&album_id=1709622916134338560
+
 
 ## What's new in the latest 1.1.4 version?
 
