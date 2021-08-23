@@ -6,8 +6,8 @@ DFT or Hartree-Fock calculation to the chemically more intepretable Lewis
 structures.
 
 **NOTE**:
-For a tutorial in *Chinese*, a series articles with examples are avaible at the 
-WeChat public account, "Quantum Chemistry", following the link:
+For a tutorial in *Chinese*, a series of articles with examples are available 
+at the WeChat public account, "Quantum Chemistry", following the link:
 
 https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzU5NjMxNjkzMw==&action=getalbum&album_id=1709622916134338560
 
