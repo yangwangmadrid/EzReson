@@ -1,5 +1,0 @@
-#!/bin/bash
-
-export EZRESON_DIR="The absoulte path where EzReson's source files are located"
-
-python ${EZRESON_DIR}/ezreson.py $*
