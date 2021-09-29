@@ -21,9 +21,9 @@ https://mp.weixin.qq.com/s/2JKLrs0UF92Tk-tst9zWIg
 
 ## What's new in the latest 2.0.1 version?
 
-1. Enumeration of all possible Clar structures (with a maximum number of  sextets) and all possible Clar resonators (with a variable number of sextets) for pi conjugate compounds
+1. Enumeration of all possible Clar structures (with a maximum number of  sextets) and all possible Clar resonators (with a variable number of sextets) for pi conjugated compounds
 
-2. Resonance analysis based on the Clar resonators for pi conjugate compounds
+2. Resonance analysis based on the Clar resonators for pi conjugated compounds
 
 3. Energy partitioning of the one-electron energy of each Clar resonator into the contributions from Clar sextets and C=C bonds
 
@@ -40,7 +40,7 @@ DFT Wave Functions. *Phys. Chem. Chem. Phys.* 2021, 23, 2331-2348.
 Chemical Resonance? *J. Comput. Chem.* 2021, 42, 412-417.
 
 If you have used EzReson to generate or analyze Kekulé structures of pi
-conjugate compounds, it is required to cite the following paper:
+conjugated compounds, it is required to cite the following paper:
 
 3. Yang Wang. Extension and Quantification of Fries Rule and Its Connection to 
 Aromaticity: Large-Scale Validation by Wave-Function-Based Resonance Analysis.
@@ -149,7 +149,7 @@ be generated:
 **2. Identify the LMOs associated with the resonance subsystem**
 
 In this particular case of benezene, we are to find the occupied LMOs 
-corresponding to the pi-conjugate system.
+corresponding to the pi conjugated system.
 To this end, open file "Ph_LMO.fchk" with visualization software like JMol or 
 Gabedit. For JMol, after opening Ph_LMO.fchk, type in the script console:
 `isosurface mo 21` and the LMO-#21 (which is the HOMO) will be displayed. You 
@@ -199,7 +199,7 @@ LMOs = 19:21
 Atoms = 1:6
 ```
 
-iii) In this case of benzene (and pi-conjugate systems in general), the pi LMOs
+iii) In this case of benzene (and pi conjugated systems in general), the pi LMOs
 can be automatically chosen by EzReson with the `PI` keyword (case-insensitive):
 ```
 LMOs = PI
@@ -398,11 +398,11 @@ Other options, like `Lewis`, `Huckel` can be used for a `PROJ` job.
 
 It is recommended to check the phase matching between the reduced atomic 
 orbitals (RAOs) if the analysis is not on the basis of HMO theory and the 
-resonance system is not a *planar* *pi-conjugate* system.
+resonance system is not a *planar* *pi conjugated* system.
 
 Usually, the phases of the RAOs are automatically determined by EzReson, which
 works quite successfully for most of the cases. However, somehow it might fail
-occasionally. A known example is given by the 3c-4e pi-conjugate system in the 
+occasionally. A known example is given by the 3c-4e pi conjugated system in the 
 ozone molecule. In the HOMO of O3, the two terminal O atoms have an off-phase 
 combination, which is rather exceptional.
 
