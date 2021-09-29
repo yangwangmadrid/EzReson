@@ -5,8 +5,8 @@ analysis of molecules. It translates the wave function obtained from a standard
 DFT or Hartree-Fock calculation to the chemically more intepretable Lewis 
 structures.
 
-**Download link for the latest v1.1.4 version**:
-https://github.com/yangwangmadrid/EzReson/releases/download/v1.1.4/EzReson_v1.1.4_release.zip
+**Download link for the latest v2.0.1 version**:
+https://github.com/yangwangmadrid/EzReson/releases/download/v2.0.1/EzReson_v2.0.1_release.zip
 
 **NOTE**:
 For a tutorial in *Chinese*, a series of articles with examples are available 
@@ -15,16 +15,13 @@ at the WeChat public account, "Quantum Chemistry", following the link:
 https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzU5NjMxNjkzMw==&action=getalbum&album_id=1709622916134338560
 
 
-## What's new in the latest 1.1.4 version?
+## What's new in the latest 2.0.1 version?
 
-1. Enumeration and resonance analysis of Kekulé structures of pi conjugate 
-compounds
+1. Enumeration of all possible Clar structures (with a maximum number of  sextets) and all possible Clar resonators (with a variable number of sextets) for pi conjugate compounds
 
-2. A new job type, `ENUM`, for sole enumeration of all Kekulé structures
+2. Resonance analysis based on the Clar resonators for pi conjugate compounds
 
-3. Automatic selection of the pi-LMOs using only the keyword `PI`
-
-4. Specification of LMOs and atoms using MATLAB colon syntax
+3. Energy partitioning of the one-electron energy of each Clar resonator into the contributions from Clar sextets and C=C bonds
 
 
 ## How to cite
@@ -303,6 +300,25 @@ structures without performing WFRT or PROJ job, by invoking the `ENUM` job type:
 ```
 Job = ENUM
 ```
+
+### WFRT analysis using all Clar resonators
+
+To perform a WFRT analysis using all possible Clar resonators, set the `Clar` parameter to be TRUE:
+```
+Clar = TRUE
+```
+
+If you want to perform a WFRT analysis using only the Clar structures (i.e.,
+with the maximum possible number of Clar sextets), set the `ClarMax` parameter to be TRUE:
+```
+ClarMax = TRUE
+```
+
+**NOTE**: 
+i) The options `Clar`, `ClarMax` and `Kekule` are mutually repulsive to each other, i.e., they cannot be present at the same time in the input file.
+
+ii) The Job types, `PROJ` and `ENUM`, and the `Huckel` option are also valid for Clar and ClarMax analysis. But the `DMRT` analysis is not supported for Clar-type resonance structures.
+
 
 
 ### WFRT analysis in the framework of simple Hueckel molecular orbital (HMO) theory
