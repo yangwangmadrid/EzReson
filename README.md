@@ -14,6 +14,10 @@ at the WeChat public account, "Quantum Chemistry", following the link:
 
 https://mp.weixin.qq.com/mp/appmsgalbum?__biz=MzU5NjMxNjkzMw==&action=getalbum&album_id=1709622916134338560
 
+This WeChat page (in Chinese as well) at "KouShare" provides an overview of the applications of EzReson to diverse chemical problems:
+
+https://mp.weixin.qq.com/s/2JKLrs0UF92Tk-tst9zWIg
+
 
 ## What's new in the latest 2.0.1 version?
 
