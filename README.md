@@ -46,6 +46,12 @@ conjugated compounds, it is required to cite the following paper:
 Aromaticity: Large-Scale Validation by Wave-Function-Based Resonance Analysis.
 *J. Chem. Inf. Model.* 2021, in press, (DOI: 10.1021/acs.jcim.1c00735)
 
+If you have used EzReson to generate or analyze Clar structures/resonators of pi
+conjugated compounds, it is required to cite the following paper:
+
+4. Yang Wang. Quantitative Resonance Theory Based on the Clar Sextet Model.
+*J. Phys. Chem. A* 2022, in press, (DOI: 10.1021/acs.jpca.1c08661)
+
 
 ## Copyright and license
 The Author of the EzReson software is Yang Wang 
