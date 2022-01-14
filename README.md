@@ -50,7 +50,7 @@ If you have used EzReson to generate or analyze Clar structures/resonators of pi
 conjugated compounds, it is required to cite the following paper:
 
 4. Yang Wang. Quantitative Resonance Theory Based on the Clar Sextet Model.
-*J. Phys. Chem. A* 2022, in press, (DOI: 10.1021/acs.jpca.1c08661)
+*J. Phys. Chem. A* 2022, 126, 1, 164–176.
 
 
 ## Copyright and license
