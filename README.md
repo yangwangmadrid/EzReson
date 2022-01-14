@@ -39,17 +39,21 @@ DFT Wave Functions. *Phys. Chem. Chem. Phys.* 2021, 23, 2331-2348.
 2. Yang Wang. Superposition of Waves or Densities: Which is the Nature of
 Chemical Resonance? *J. Comput. Chem.* 2021, 42, 412-417.
 
+3. Yang Wang. Response to comment on “Superposition of waves or densities: 
+Which is the nature of chemical resonance?”
+*J. Comput. Chem.* 2021, 42, 1341-1343.
+
 If you have used EzReson to generate or analyze Kekulé structures of pi
 conjugated compounds, it is required to cite the following paper:
 
-3. Yang Wang. Extension and Quantification of Fries Rule and Its Connection to 
+4. Yang Wang. Extension and Quantification of Fries Rule and Its Connection to 
 Aromaticity: Large-Scale Validation by Wave-Function-Based Resonance Analysis.
 *J. Chem. Inf. Model.* 2021, in press, (DOI: 10.1021/acs.jcim.1c00735)
 
 If you have used EzReson to generate or analyze Clar structures/resonators of pi
 conjugated compounds, it is required to cite the following paper:
 
-4. Yang Wang. Quantitative Resonance Theory Based on the Clar Sextet Model.
+5. Yang Wang. Quantitative Resonance Theory Based on the Clar Sextet Model.
 *J. Phys. Chem. A* 2022, 126, 1, 164–176.
 
 
