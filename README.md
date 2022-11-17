@@ -48,7 +48,7 @@ conjugated compounds, it is required to cite the following paper:
 
 4. Yang Wang. Extension and Quantification of Fries Rule and Its Connection to 
 Aromaticity: Large-Scale Validation by Wave-Function-Based Resonance Analysis.
-*J. Chem. Inf. Model.* 20212, 62, 5136–5148.
+*J. Chem. Inf. Model.* 2022, 62, 5136–5148.
 
 If you have used EzReson to generate or analyze Clar structures/resonators of pi
 conjugated compounds, it is required to cite the following paper:
