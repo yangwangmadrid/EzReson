@@ -5,8 +5,8 @@ analysis of molecules. It translates the wave function obtained from a standard
 DFT or Hartree-Fock calculation to the chemically more intepretable Lewis 
 structures.
 
-**Download link for the latest v2.0.1 version**:
-https://github.com/yangwangmadrid/EzReson/releases/download/v2.0.1/EzReson_v2.0.1_release.zip
+**Download link for the latest v3.0 version**:
+https://github.com/yangwangmadrid/EzReson/releases/download/v3.0/EzReson_v3.0_release.zip
 
 **NOTE**:
 For a tutorial in *Chinese*, a series of articles with examples are available 
@@ -32,7 +32,6 @@ https://mp.weixin.qq.com/s/2JKLrs0UF92Tk-tst9zWIg
 5. Show elapsed time at the end of output of the program
 
 6. Fixed a bug for parsing the input file: The colon symbol used for LPs in Lewis structures conflicts with that used in the MATLAB-style specification of atoms or LMOs
-
 
 
 ## How to cite
@@ -482,4 +481,3 @@ The following aspects are to be considered in our future work:
   wave functions
 
 - Excited states
-
