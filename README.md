@@ -19,13 +19,20 @@ This WeChat page (in Chinese as well) at "KouShare" provides an overview of the 
 https://mp.weixin.qq.com/s/2JKLrs0UF92Tk-tst9zWIg
 
 
-## What's new in the latest 2.0.1 version?
+## What's new in the latest 3.0 version?
 
-1. Enumeration of all possible Clar structures (with a maximum number of  sextets) and all possible Clar resonators (with a variable number of sextets) for pi conjugated compounds
+1. Perform open-shell WFRT and PROJ jobs for pi-conjugated monoradicals and biradicals
 
-2. Resonance analysis based on the Clar resonators for pi conjugated compounds
+2. Output overlap, Hamiltonian and interaction-energy matrices between Clar resonators or specified Lewis structures
 
-3. Energy partitioning of the one-electron energy of each Clar resonator into the contributions from Clar sextets and C=C bonds
+3. Use the `ProjDiv` keyword to divide the complete set of Kekule structures into many parts, for each of which the WF and DM projections are calculations separately, thus requiring much less memory. This is useful for a huge number of Kekule structures, which would otherwise encounter out of memory problem.
+
+4. Use the `SciForm` option for Kekule-WFRT jobs for both closed- and open-shell cases
+
+5. Show elapsed time at the end of output of the program
+
+6. Fixed a bug for parsing the input file: The colon symbol used for LPs in Lewis structures conflicts with that used in the MATLAB-style specification of atoms or LMOs
+
 
 
 ## How to cite
@@ -48,7 +55,7 @@ conjugated compounds, it is required to cite the following paper:
 
 4. Yang Wang. Extension and Quantification of Fries Rule and Its Connection to 
 Aromaticity: Large-Scale Validation by Wave-Function-Based Resonance Analysis.
-*J. Chem. Inf. Model.* 2022, 62, 5136–5148.
+*J. Chem. Inf. Model.* 2021, in press, (DOI: 10.1021/acs.jcim.1c00735)
 
 If you have used EzReson to generate or analyze Clar structures/resonators of pi
 conjugated compounds, it is required to cite the following paper:
@@ -475,3 +482,4 @@ The following aspects are to be considered in our future work:
   wave functions
 
 - Excited states
+
