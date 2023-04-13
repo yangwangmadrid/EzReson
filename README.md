@@ -36,7 +36,7 @@ https://mp.weixin.qq.com/s/2JKLrs0UF92Tk-tst9zWIg
 
 ## How to cite
 
-If you havee used EzReson in your research papers or presentations, it is 
+If you have used EzReson in your research papers or presentations, it is 
 obligatory to cite the following works:
 
 1. Yang Wang. A Reliable and Efficient Resonance Theory Based on Analysis of
