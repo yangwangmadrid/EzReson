@@ -40,16 +40,16 @@ If you have used EzReson in your research papers or presentations, it is
 obligatory to cite the following works:
 
 1. Yang Wang. A Reliable and Efficient Resonance Theory Based on Analysis of
-DFT Wave Functions. *Phys. Chem. Chem. Phys.* 2021, 23, 2331-2348.
+DFT Wave Functions. *Phys. Chem. Chem. Phys.* **2021**, *23*, 2331-2348.
  
 2. Yang Wang. Superposition of Waves or Densities: Which is the Nature of
-Chemical Resonance? *J. Comput. Chem.* 2021, 42, 412-417.
+Chemical Resonance? *J. Comput. Chem.* **2021**, *42*, 412-417.
 
 3. Yang Wang. Response to comment on “Superposition of waves or densities: 
 Which is the nature of chemical resonance?”
-*J. Comput. Chem.* 2021, 42, 1341-1343.
+*J. Comput. Chem.* **2021**, *42*, 1341-1343.
 
-4. Yang Wang. The EzReson program. 2023, https://github.com/yangwangmadrid/EzReson.
+4. Yang Wang. The EzReson program. **2023**, https://github.com/yangwangmadrid/EzReson.
 
 
 If you have used EzReson to generate or analyze Kekulé structures of pi
@@ -57,13 +57,13 @@ conjugated compounds, it is required to cite the following paper:
 
 5. Yang Wang. Extension and Quantification of Fries Rule and Its Connection to 
 Aromaticity: Large-Scale Validation by Wave-Function-Based Resonance Analysis.
-*J. Chem. Inf. Model.* 2022, 62, 5136–5148.
+*J. Chem. Inf. Model.* **2022**, *62*, 5136–5148.
 
 If you have used EzReson to generate or analyze Clar structures/resonators of pi
 conjugated compounds, it is required to cite the following paper:
 
 6. Yang Wang. Quantitative Resonance Theory Based on the Clar Sextet Model.
-*J. Phys. Chem. A* 2022, 126, 1, 164–176.
+*J. Phys. Chem. A* **2022**, *126*, 1, 164–176.
 
 
 ## Copyright and license
