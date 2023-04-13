@@ -49,17 +49,20 @@ Chemical Resonance? *J. Comput. Chem.* 2021, 42, 412-417.
 Which is the nature of chemical resonance?”
 *J. Comput. Chem.* 2021, 42, 1341-1343.
 
+4. Yang Wang. The EzReson program. 2023, https://github.com/yangwangmadrid/EzReson.
+
+
 If you have used EzReson to generate or analyze Kekulé structures of pi
 conjugated compounds, it is required to cite the following paper:
 
-4. Yang Wang. Extension and Quantification of Fries Rule and Its Connection to 
+5. Yang Wang. Extension and Quantification of Fries Rule and Its Connection to 
 Aromaticity: Large-Scale Validation by Wave-Function-Based Resonance Analysis.
-*J. Chem. Inf. Model.* 2021, in press, (DOI: 10.1021/acs.jcim.1c00735)
+*J. Chem. Inf. Model.* 2022, 62, 5136–5148.
 
 If you have used EzReson to generate or analyze Clar structures/resonators of pi
 conjugated compounds, it is required to cite the following paper:
 
-5. Yang Wang. Quantitative Resonance Theory Based on the Clar Sextet Model.
+6. Yang Wang. Quantitative Resonance Theory Based on the Clar Sextet Model.
 *J. Phys. Chem. A* 2022, 126, 1, 164–176.
 
 
