@@ -9,6 +9,10 @@ structures.
 https://github.com/yangwangmadrid/EzReson/releases/download/v3.0/EzReson_v3.0_release.zip
 
 **NOTE**:
+A recent comprehensive review (in *English*) on the fundamentals and applications of the method is freely available at
+
+https://www.global-sci.com/cicc/article/view/24237
+
 For a tutorial in *Chinese*, a series of articles with examples are available 
 at the WeChat public account, "Quantum Chemistry", following the link:
 
@@ -49,7 +53,9 @@ Chemical Resonance? *J. Comput. Chem.* **2021**, *42*, 412-417.
 Which is the nature of chemical resonance?”
 *J. Comput. Chem.* **2021**, *42*, 1341-1343.
 
-4. Yang Wang. The EzReson program. **2023**, https://github.com/yangwangmadrid/EzReson.
+4. Yang Wang. Modern Wavefunction-Based Resonance Theory: From Electronic Structure Calculations to Interpretable Chemical Pictures. *Commun. Comput. Chem.* **2026**, *8*, 151–181.
+
+5. Yang Wang. The EzReson program. **2023**, https://github.com/yangwangmadrid/EzReson.
 
 
 If you have used EzReson to generate or analyze Kekulé structures of pi
