@@ -5,6 +5,8 @@ analysis of molecules. It translates the wave function obtained from a standard
 DFT or Hartree-Fock calculation to the chemically more intepretable Lewis 
 structures.
 
+![Project Cover Image](https://www.global-sci.com/public/journals/4/submission_24237_24236_coverImage_en.png)
+
 **Download link for the latest v3.0 version**:
 https://github.com/yangwangmadrid/EzReson/releases/download/v3.0/EzReson_v3.0_release.zip
 
