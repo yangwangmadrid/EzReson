@@ -292,14 +292,18 @@ def readControlFile( inputFileName ):
                 if fields.strip().lower() == 'pi':
                     lmos = -1
                     continue
-                for s in fields.split():
-                    s_BegEnd = s.split( ':' )
-                    if len( s_BegEnd ) == 1:
-                        lmos.append( int(s) )
-                    elif len( s_BegEnd ) == 2:
-                        for i in range( int(s_BegEnd[0]), int(s_BegEnd[1])+1 ):
-                            lmos.append( i )
-               #print( 'lmos = ', lmos )
+                parts = fields.split(';')
+                for part in parts:
+                    sub_lmos = []
+                    for s in part.split():
+                        s_BegEnd = s.split(':')
+                        if len(s_BegEnd) == 1:
+                                sub_lmos.append(int(s))
+                        elif len(s_BegEnd) == 2:
+                            for i in range(int(s_BegEnd[0]), int(s_BegEnd[1]) + 1):
+                                sub_lmos.append(i)
+                    lmos.append(sub_lmos)
+                print( 'lmos = ', lmos )
                 #input()
                 continue
 
@@ -595,15 +599,15 @@ def readControlFile( inputFileName ):
         exit(1)
 
     # -- For Kekule/Clar resonators, # of electrons must equal # of atoms:
-    if kekule or clar:
-        if isinstance(lmos, list) and ( len( lmos )*2 != len( atoms ) ) \
-                and not huckel:
-            print( 'ERROR: ', end='' )
-            print( 'For kekule/clar structures, the number of LMOs (%i) '
-                    'is not half of the number of atoms (%i)' % 
-                    ( len( lmos ), len( atoms ) ) )
-            print( 'Aborted' )
-            exit(1)
+    # if kekule or clar:
+    #     if isinstance(lmos, list) and ( len( lmos )*2 != len( atoms ) ) \
+    #             and not huckel:
+    #         print( 'ERROR: ', end='' )
+    #         print( 'For kekule/clar structures, the number of LMOs (%i) '
+    #                 'is not half of the number of atoms (%i)' % 
+    #                 ( len( lmos ), len( atoms ) ) )
+    #         print( 'Aborted' )
+    #         exit(1)
 
     # -- Replusive parameters:
     if len( lewis ) > 0 and kekule:
